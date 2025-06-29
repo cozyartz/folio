@@ -39,15 +39,60 @@ const Hero: React.FC = () => {
           Passionate about clean code, innovative solutions, and bringing ideas to life.
         </p>
 
-        {/* GitHub Contribution Graph */}
+        {/* GitHub Activity */}
         <div className="mb-12 flex justify-center">
-          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/20 transition-all duration-300">
-            <h3 className="text-lg font-semibold text-white mb-4 text-center">GitHub Activity</h3>
-            <img
-              src="https://github-readme-streak-stats.herokuapp.com/?user=cozyartz&theme=dark&hide_border=true&background=00000000&stroke=ffffff20&ring=3b82f6&fire=10b981&currStreakLabel=ffffff&sideLabels=ffffff&currStreakNum=3b82f6&sideNums=10b981"
-              alt="GitHub Contribution Graph"
-              className="rounded-lg max-w-full h-auto"
-            />
+          <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/20 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl">
+            <h3 className="text-lg font-semibold text-white mb-4 text-center group-hover:text-blue-300 transition-colors duration-300">
+              GitHub Activity
+            </h3>
+            <div className="relative overflow-hidden rounded-lg">
+              {/* Loading skeleton */}
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-800/50 via-slate-700/50 to-slate-800/50 animate-pulse rounded-lg opacity-100 transition-opacity duration-1000 group-hover:opacity-0" />
+              
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-lg" />
+              
+              <img
+                src="https://github-readme-streak-stats.herokuapp.com/?user=cozyartz&theme=dark&hide_border=true&background=00000000&stroke=ffffff20&ring=3b82f6&fire=10b981&currStreakLabel=ffffff&sideLabels=ffffff&currStreakNum=3b82f6&sideNums=10b981"
+                alt="GitHub Activity Stats"
+                className="rounded-lg max-w-full h-auto relative z-10 transition-all duration-500 group-hover:brightness-110"
+                onLoad={(e) => {
+                  const target = e.target as HTMLImageElement;
+          <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/20 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl">
+            <h3 className="text-lg font-semibold text-white mb-4 text-center group-hover:text-blue-300 transition-colors duration-300">
+              GitHub Activity
+            </h3>
+            <div className="relative overflow-hidden rounded-lg">
+              {/* Loading skeleton with pulse animation */}
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-800/50 via-slate-700/50 to-slate-800/50 animate-pulse rounded-lg opacity-100 transition-opacity duration-1000 group-hover:opacity-0" />
+              
+              {/* Shimmer effect that sweeps across */}
+              <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-lg" />
+              
+              {/* Floating particles effect */}
+              <div className="absolute inset-0 opacity-30">
+                <div className="absolute top-2 left-4 w-1 h-1 bg-blue-400 rounded-full animate-ping" style={{ animationDelay: '0s' }} />
+                <div className="absolute top-6 right-8 w-1 h-1 bg-emerald-400 rounded-full animate-ping" style={{ animationDelay: '1s' }} />
+                <div className="absolute bottom-4 left-12 w-1 h-1 bg-purple-400 rounded-full animate-ping" style={{ animationDelay: '2s' }} />
+                <div className="absolute bottom-8 right-4 w-1 h-1 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }} />
+              </div>
+              
+              <img
+                src="https://github-readme-streak-stats.herokuapp.com/?user=cozyartz&theme=dark&hide_border=true&background=00000000&stroke=ffffff20&ring=3b82f6&fire=10b981&currStreakLabel=ffffff&sideLabels=ffffff&currStreakNum=3b82f6&sideNums=10b981"
+                alt="GitHub Activity Stats"
+                className="rounded-lg max-w-full h-auto relative z-10 transition-all duration-500 group-hover:brightness-110 group-hover:contrast-110"
+                onLoad={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  const skeleton = target.parentElement?.querySelector('.animate-pulse');
+                  if (skeleton) {
+                    skeleton.classList.add('opacity-0');
+                  }
+                }}
+              />
+              
+              {/* Glow effect on hover */}
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500/20 via-emerald-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+            </div>
           </div>
         </div>
 
@@ -63,7 +108,7 @@ const Hero: React.FC = () => {
           </a>
           
           <a
-            href="https://andreacozart.me"
+            href="https://portfolio.andreacozart.me"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600 rounded-full text-white font-semibold transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl"
@@ -73,7 +118,7 @@ const Hero: React.FC = () => {
           </a>
 
           <a
-            href="https://link.andreacozart.me"
+            href="https://links.andreacozart.me"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full text-white font-semibold transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl"
