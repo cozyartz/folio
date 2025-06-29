@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, Database, Globe, Smartphone, Cpu, Zap, Bone as Drone } from 'lucide-react';
+import { Code, Database, Globe, Smartphone, Cpu, Zap, Plane } from 'lucide-react';
 
 const SkillsSection: React.FC = () => {
   const skillCategories = [
@@ -40,7 +40,7 @@ const SkillsSection: React.FC = () => {
       color: "from-yellow-500 to-orange-500"
     },
     {
-      icon: Drone,
+      icon: Plane,
       title: "Drone Operations",
       skills: ["Drone Piloting", "Aerial Photography/Videography", "Photogrammetry/Mapping", "Part 107 Certified"],
       color: "from-sky-500 to-indigo-500"
