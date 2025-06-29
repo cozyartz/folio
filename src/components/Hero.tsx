@@ -46,25 +46,6 @@ const Hero: React.FC = () => {
               GitHub Activity
             </h3>
             <div className="relative overflow-hidden rounded-lg">
-              {/* Loading skeleton */}
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-800/50 via-slate-700/50 to-slate-800/50 animate-pulse rounded-lg opacity-100 transition-opacity duration-1000 group-hover:opacity-0" />
-              
-              {/* Shimmer effect */}
-              <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-lg" />
-              
-              <img
-                src="https://github-readme-streak-stats.herokuapp.com/?user=cozyartz&theme=dark&hide_border=true&background=00000000&stroke=ffffff20&ring=3b82f6&fire=10b981&currStreakLabel=ffffff&sideLabels=ffffff&currStreakNum=3b82f6&sideNums=10b981"
-                alt="GitHub Activity Stats"
-                className="rounded-lg max-w-full h-auto relative z-10 transition-all duration-500 group-hover:brightness-110"
-                onLoad={(e) => {
-                  const target = e.target as HTMLImageElement;
-                }
-                }
-          <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/20 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl">
-            <h3 className="text-lg font-semibold text-white mb-4 text-center group-hover:text-blue-300 transition-colors duration-300">
-              GitHub Activity
-            </h3>
-            <div className="relative overflow-hidden rounded-lg">
               {/* Loading skeleton with pulse animation */}
               <div className="absolute inset-0 bg-gradient-to-r from-slate-800/50 via-slate-700/50 to-slate-800/50 animate-pulse rounded-lg opacity-100 transition-opacity duration-1000 group-hover:opacity-0" />
               
