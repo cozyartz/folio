@@ -101,7 +101,7 @@ const Hero: React.FC = () => {
           </a>
 
           <a
-            href="https://links.andreacozart.me"
+            href="https://link.andreacozart.me"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full text-white font-semibold transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl"
