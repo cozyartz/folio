@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, Database, Globe, Smartphone, Cpu, Zap, Drone } from 'lucide-react';
+import { Code, Database, Globe, Smartphone, Cpu, Zap, Bone as Drone } from 'lucide-react';
 
 const SkillsSection: React.FC = () => {
   const skillCategories = [
