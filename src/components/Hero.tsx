@@ -58,6 +58,8 @@ const Hero: React.FC = () => {
                 className="rounded-lg max-w-full h-auto relative z-10 transition-all duration-500 group-hover:brightness-110"
                 onLoad={(e) => {
                   const target = e.target as HTMLImageElement;
+                }
+                }
           <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/20 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl">
             <h3 className="text-lg font-semibold text-white mb-4 text-center group-hover:text-blue-300 transition-colors duration-300">
               GitHub Activity
