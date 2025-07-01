@@ -36,4 +36,3 @@ jobs:
           accountId: 51826042d6e31c694331efeb1be34123
           projectName: folio
           directory: dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
