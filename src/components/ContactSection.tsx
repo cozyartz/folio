@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Github, ExternalLink, Linkedin, Twitter, MapPin, Calendar } from 'lucide-react';
+import { Mail, Github, ExternalLink, MapPin, Calendar } from 'lucide-react';
 
 const ContactSection: React.FC = () => {
   return (

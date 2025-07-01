@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, ExternalLink, Mail, ArrowDown } from 'lucide-react';
+import { Github, ExternalLink, ArrowDown } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const scrollToProjects = () => {
@@ -61,7 +61,7 @@ const Hero: React.FC = () => {
               </div>
               
               <img
-                src="https://github-readme-streak-stats.herokuapp.com/?user=cozyartz&theme=dark&hide_border=true&background=00000000&stroke=ffffff20&ring=3b82f6&fire=10b981&currStreakLabel=ffffff&sideLabels=ffffff&currStreakNum=3b82f6&sideNums=10b981"
+                src="https://stats.andreacozart.me/?username=cozyartz&theme=dark"
                 alt="GitHub Activity Stats"
                 className="rounded-lg max-w-full h-auto relative z-10 transition-all duration-500 group-hover:brightness-110 group-hover:contrast-110"
                 onLoad={(e) => {
@@ -70,6 +70,14 @@ const Hero: React.FC = () => {
                   if (skeleton) {
                     skeleton.classList.add('opacity-0');
                   }
+                }}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const errorDiv = document.createElement('div');
+                  errorDiv.className = 'text-white/70 text-center py-8 px-4 relative z-10';
+                  errorDiv.innerHTML = '<p>GitHub stats temporarily unavailable</p>';
+                  target.parentElement?.appendChild(errorDiv);
                 }}
               />
               
