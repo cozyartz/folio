@@ -61,7 +61,7 @@ const Hero: React.FC = () => {
               </div>
               
               <img
-                src="https://stats.andreacozart.me/?username=cozyartz&theme=dark"
+                src="https://github-stats-worker.cozyartz-media-group.workers.dev/?username=cozyartz&theme=dark"
                 alt="GitHub Activity Stats"
                 className="rounded-lg max-w-full h-auto relative z-10 transition-all duration-500 group-hover:brightness-110 group-hover:contrast-110"
                 onLoad={(e) => {
