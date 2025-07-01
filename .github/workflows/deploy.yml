@@ -29,6 +29,13 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Deploy Cloudflare Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 51826042d6e31c694331efeb1be34123
+          command: deploy
+
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
