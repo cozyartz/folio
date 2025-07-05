@@ -2,8 +2,8 @@ import React from 'react';
 import { Github, ExternalLink, ArrowDown } from 'lucide-react';
 
 const Hero: React.FC = () => {
-  const scrollToProjects = () => {
-    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToEducation = () => {
+    document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -120,11 +120,11 @@ const Hero: React.FC = () => {
         </div>
 
         <button
-          onClick={scrollToProjects}
+          onClick={scrollToEducation}
           className="group animate-bounce hover:animate-none"
         >
           <div className="flex flex-col items-center gap-2 text-white/70 hover:text-white transition-colors duration-300">
-            <span className="text-sm font-medium">Explore Projects</span>
+            <span className="text-sm font-medium">Learn More</span>
             <ArrowDown className="w-6 h-6 group-hover:transform group-hover:translate-y-1 transition-transform duration-300" />
           </div>
         </button>

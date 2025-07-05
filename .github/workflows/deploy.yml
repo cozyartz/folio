@@ -37,7 +37,8 @@ jobs:
           projectName: folio
           directory: dist
 
-      - name: Deploy GitHub Stats Worker
-        run: npx wrangler deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      # Temporarily disabled - need to update API token permissions
+      # - name: Deploy GitHub Stats Worker
+      #   run: npx wrangler deploy
+      #   env:
+      #     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
