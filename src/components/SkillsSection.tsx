@@ -1,5 +1,5 @@
 import React from 'react';
-import { Code, Database, Globe, Smartphone, Cpu, Zap, Plane } from 'lucide-react';
+import { Code, Database, Globe, Smartphone, Cpu, Zap, Plane, CircuitBoard, Wrench, Terminal, Server, Bot } from 'lucide-react';
 
 const SkillsSection: React.FC = () => {
   const skillCategories = [
@@ -28,21 +28,51 @@ const SkillsSection: React.FC = () => {
       color: "from-orange-500 to-red-500"
     },
     {
+      icon: Terminal,
+      title: "Linux & Systems",
+      skills: ["Ubuntu", "CentOS", "Debian", "Bash Scripting", "System Administration", "Network Configuration", "Security Hardening", "Performance Tuning"],
+      color: "from-green-600 to-emerald-600"
+    },
+    {
       icon: Cpu,
-      title: "DevOps & Tools",
-      skills: ["Docker", "AWS", "CI/CD", "Git", "Webpack", "Vite"],
+      title: "DevOps & Containers",
+      skills: ["Docker", "Docker Compose", "Kubernetes", "AWS", "CI/CD", "Git", "Ansible", "Terraform"],
       color: "from-indigo-500 to-blue-500"
+    },
+    {
+      icon: Server,
+      title: "IT Infrastructure",
+      skills: ["Server Management", "Network Administration", "Cloud Architecture", "Monitoring", "Backup Solutions", "Virtualization", "Load Balancing", "DNS Management"],
+      color: "from-purple-500 to-indigo-500"
+    },
+    {
+      icon: Bot,
+      title: "AI & Machine Learning",
+      skills: ["TensorFlow", "PyTorch", "OpenAI APIs", "Computer Vision", "NLP", "Model Training", "AI Integration", "Prompt Engineering"],
+      color: "from-pink-500 to-rose-500"
     },
     {
       icon: Zap,
       title: "Emerging Tech",
-      skills: ["AI/ML", "Blockchain", "Web3", "TensorFlow", "Solidity", "IPFS"],
+      skills: ["Blockchain", "Web3", "Solidity", "IPFS", "Edge Computing", "IoT Analytics", "Quantum Computing", "AR/VR"],
       color: "from-yellow-500 to-orange-500"
     },
     {
+      icon: CircuitBoard,
+      title: "Hardware & IoT",
+      skills: ["Arduino", "Raspberry Pi", "ESP32/ESP8266", "Adafruit Ecosystem", "Sensor Integration", "3D Printing", "PCB Design", "Microcontroller Programming"],
+      color: "from-green-500 to-teal-500"
+    },
+    {
+      icon: Wrench,
+      title: "Prototyping & Making",
+      skills: ["Rapid Prototyping", "Circuit Design", "Soldering", "CAD Design", "Electronics Testing", "Hardware Debugging", "Component Selection", "System Integration"],
+      color: "from-amber-500 to-orange-500"
+    },
+    {
       icon: Plane,
-      title: "Drone Operations",
-      skills: ["Drone Piloting", "Aerial Photography/Videography", "Photogrammetry/Mapping", "Part 107 Certified"],
+      title: "Drone Engineering",
+      skills: ["Custom Drone Builds", "Flight Controller Programming", "Aerial Photography/Videography", "Photogrammetry/Mapping", "Part 107 Certified", "FPV Systems", "Telemetry Systems"],
       color: "from-sky-500 to-indigo-500"
     }
   ];
@@ -117,11 +147,17 @@ const SkillsSection: React.FC = () => {
 
         <div className="mt-20 text-center">
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">Always Learning</h3>
-            <p className="text-slate-300 text-lg leading-relaxed">
+            <h3 className="text-2xl font-bold text-white mb-4">Always Learning & Innovating</h3>
+            <p className="text-slate-300 text-lg leading-relaxed mb-4">
               Technology evolves rapidly, and so do I. Currently exploring AI integration in web applications, 
-              advanced React patterns, and cloud-native architectures. Passionate about staying at the forefront 
-              of innovation and bringing cutting-edge solutions to every project.
+              advanced React patterns, and cloud-native architectures. My neurodivergent perspective allows me 
+              to see patterns and connections that others might miss, leading to innovative solutions that bridge 
+              the gap between digital and physical worlds.
+            </p>
+            <p className="text-slate-300 text-lg leading-relaxed">
+              Whether it's integrating IoT sensors with web dashboards, building custom drones with real-time 
+              telemetry, or prototyping with the latest Adafruit boards, I approach every challenge with curiosity 
+              and a unique way of thinking that turns complex problems into elegant solutions.
             </p>
           </div>
         </div>

@@ -32,11 +32,14 @@ const Hero: React.FC = () => {
 
         <p className="text-2xl md:text-3xl text-slate-300 mb-8 font-light leading-relaxed">
           Full Stack Developer & Creative Technologist
+          <span className="block text-xl md:text-2xl mt-2 bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+            Hardware Hacker & Drone Builder
+          </span>
         </p>
 
         <p className="text-lg text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-          Crafting beautiful, functional web experiences with modern technologies. 
-          Passionate about clean code, innovative solutions, and bringing ideas to life.
+          Bridging the digital and physical worlds through code, circuits, and creativity. 
+          From web applications to custom drones, I bring innovative solutions to life with a unique perspective shaped by neurodiversity—seeing connections others miss and solving problems from unexpected angles.
         </p>
 
         {/* GitHub Activity */}
