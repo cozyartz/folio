@@ -4,69 +4,66 @@ import ProjectCard from './ProjectCard';
 const ProjectsSection: React.FC = () => {
   const projects = [
     {
-      title: "Modern E-Commerce Platform",
-      description: "A full-stack e-commerce solution built with React, Node.js, and PostgreSQL. Features include real-time inventory management, secure payment processing, and an intuitive admin dashboard.",
-      technologies: ["React", "TypeScript", "Node.js", "PostgreSQL", "Stripe", "Tailwind CSS"],
-      githubUrl: "https://github.com/andreacozart/ecommerce-platform",
-      liveUrl: "https://shop.andreacozart.me",
-      stars: 234,
-      forks: 67,
+      title: "Modern Portfolio Website",
+      description: "This current portfolio website showcasing Full Stack Developer & Creative Technologist work. Built with React, TypeScript, Vite, and Tailwind CSS with advanced animations and GitHub integration.",
+      technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Lucide React"],
+      githubUrl: "https://github.com/cozyartz/folio",
+      liveUrl: "https://portfolio.andreacozart.me",
+      stars: 0,
+      forks: 0,
       language: "TypeScript",
-      lastUpdated: "2 days ago"
+      lastUpdated: "Recently"
     },
     {
-      title: "AI-Powered Task Manager",
-      description: "An intelligent task management application that uses machine learning to prioritize tasks and predict completion times. Built with React and Python backend.",
-      technologies: ["React", "Python", "FastAPI", "TensorFlow", "MongoDB", "Socket.io"],
-      githubUrl: "https://github.com/andreacozart/ai-task-manager",
-      liveUrl: "https://tasks.andreacozart.me",
-      stars: 189,
-      forks: 43,
-      language: "Python",
-      lastUpdated: "1 week ago"
+      title: "AstroLMS Landing Page",
+      description: "A modern, AI-focused landing page for a Learning Management System. Features investor information, AI-powered learning capabilities showcase, and responsive design with smooth animations.",
+      technologies: ["Astro", "React", "Tailwind CSS", "Cloudflare Pages"],
+      githubUrl: "https://github.com/AutiMind/AstroLMS-landing",
+      liveUrl: "https://astrolms-landing.pages.dev",
+      stars: 0,
+      forks: 0,
+      language: "Astro",
+      lastUpdated: "Recently"
     },
     {
-      title: "Real-time Collaboration Tool",
-      description: "A collaborative workspace platform enabling real-time document editing, video calls, and project management. Features WebRTC integration and live synchronization.",
-      technologies: ["Next.js", "WebRTC", "Socket.io", "Redis", "MongoDB", "Tailwind CSS"],
-      githubUrl: "https://github.com/andreacozart/collab-workspace",
-      liveUrl: "https://collab.andreacozart.me",
-      stars: 156,
-      forks: 34,
-      language: "JavaScript",
-      lastUpdated: "3 days ago"
-    },
-    {
-      title: "Design System Library",
-      description: "A comprehensive React component library with 100+ components, built-in accessibility features, and comprehensive documentation. Used across multiple production applications.",
-      technologies: ["React", "TypeScript", "Storybook", "Styled Components", "Jest", "Rollup"],
-      githubUrl: "https://github.com/andreacozart/design-system",
-      liveUrl: "https://design.andreacozart.me",
-      stars: 312,
-      forks: 89,
+      title: "EtchNFT Platform",
+      description: "E-commerce platform for etching NFTs onto physical materials. A unique bridge between digital and physical art, allowing users to transform their digital assets into tangible collectibles.",
+      technologies: ["TypeScript", "React", "E-commerce", "NFT Integration"],
+      githubUrl: "https://github.com/cozyartz/etchNFT",
+      stars: 0,
+      forks: 0,
       language: "TypeScript",
-      lastUpdated: "5 days ago"
+      lastUpdated: "Recently"
     },
     {
-      title: "Developer Portfolio Template",
-      description: "A modern, responsive portfolio template for developers. Features dark mode, smooth animations, and optimized performance. Easily customizable and well-documented.",
-      technologies: ["React", "TypeScript", "Framer Motion", "Tailwind CSS", "Vite"],
-      githubUrl: "https://github.com/andreacozart/portfolio-template",
-      liveUrl: "https://template.andreacozart.me",
-      stars: 445,
-      forks: 123,
+      title: "Cozyartz Media Group Website",
+      description: "Corporate website for Cozyartz Media Group, showcasing creative technology services and digital solutions. Features modern design and comprehensive service portfolio.",
+      technologies: ["TypeScript", "React", "Corporate Website"],
+      githubUrl: "https://github.com/cozyartz/cmgsite",
+      stars: 0,
+      forks: 0,
       language: "TypeScript",
-      lastUpdated: "1 day ago"
+      lastUpdated: "Recently"
     },
     {
-      title: "Blockchain Voting System",
-      description: "A secure, transparent voting system built on Ethereum blockchain. Features smart contracts for vote validation and a user-friendly interface for voters and administrators.",
-      technologies: ["Solidity", "React", "Web3.js", "Hardhat", "IPFS", "Material-UI"],
-      githubUrl: "https://github.com/andreacozart/blockchain-voting",
-      stars: 278,
-      forks: 56,
-      language: "Solidity",
-      lastUpdated: "1 week ago"
+      title: "HippiStuff Boho Website",
+      description: "A boho-themed website featuring creative design and unique aesthetic. Showcases artistic sensibilities and creative web development skills with a focus on user experience.",
+      technologies: ["TypeScript", "React", "Creative Design"],
+      githubUrl: "https://github.com/cozyartz/hippistuff",
+      stars: 0,
+      forks: 0,
+      language: "TypeScript",
+      lastUpdated: "Recently"
+    },
+    {
+      title: "AstroPraxis Website",
+      description: "Modern website built with Astro framework, demonstrating expertise in cutting-edge web technologies and static site generation with optimal performance.",
+      technologies: ["Astro", "Modern Web", "Static Site Generation"],
+      githubUrl: "https://github.com/cozyartz/AstroPraxis",
+      stars: 0,
+      forks: 0,
+      language: "Astro",
+      lastUpdated: "Recently"
     }
   ];
 
