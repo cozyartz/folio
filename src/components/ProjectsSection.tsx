@@ -5,67 +5,67 @@ const ProjectsSection: React.FC = () => {
   const projects = [
     {
       title: "Modern Portfolio Website",
-      description: "This current portfolio website showcasing Full Stack Developer & Creative Technologist work. Built with React, TypeScript, Vite, and Tailwind CSS with advanced animations and GitHub integration.",
+      description: "Personal portfolio showcasing full-stack development expertise with React, TypeScript, and Vite. Features responsive design, smooth animations, GitHub integration, and optimized performance with modern web technologies.",
       technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Lucide React"],
       githubUrl: "https://github.com/cozyartz/folio",
       liveUrl: "https://portfolio.andreacozart.me",
       stars: 0,
       forks: 0,
       language: "TypeScript",
-      lastUpdated: "Recently"
+      lastUpdated: "2024"
     },
     {
-      title: "AstroLMS Landing Page",
-      description: "A modern, AI-focused landing page for a Learning Management System. Features investor information, AI-powered learning capabilities showcase, and responsive design with smooth animations.",
+      title: "AstroLMS Learning Platform",
+      description: "AI-powered Learning Management System landing page built with Astro. Features investor information, course management capabilities, and responsive design optimized for educational technology platforms.",
       technologies: ["Astro", "React", "Tailwind CSS", "Cloudflare Pages"],
       githubUrl: "https://github.com/AutiMind/AstroLMS-landing",
       liveUrl: "https://astrolms-landing.pages.dev",
       stars: 0,
       forks: 0,
       language: "Astro",
-      lastUpdated: "Recently"
+      lastUpdated: "2024"
     },
     {
-      title: "EtchNFT Platform",
-      description: "E-commerce platform for etching NFTs onto physical materials. A unique bridge between digital and physical art, allowing users to transform their digital assets into tangible collectibles.",
-      technologies: ["TypeScript", "React", "E-commerce", "NFT Integration"],
+      title: "EtchNFT Marketplace",
+      description: "Innovative e-commerce platform bridging digital and physical art by enabling NFT etching onto physical materials. Features user authentication, payment processing, and custom manufacturing integration.",
+      technologies: ["TypeScript", "React", "Node.js", "E-commerce", "NFT Integration"],
       githubUrl: "https://github.com/cozyartz/etchNFT",
       stars: 0,
       forks: 0,
       language: "TypeScript",
-      lastUpdated: "Recently"
+      lastUpdated: "2024"
     },
     {
-      title: "Cozyartz Media Group Website",
-      description: "Corporate website for Cozyartz Media Group, showcasing creative technology services and digital solutions. Features modern design and comprehensive service portfolio.",
-      technologies: ["TypeScript", "React", "Corporate Website"],
+      title: "Cozyartz Media Group",
+      description: "Professional corporate website for creative technology services. Features service portfolios, client testimonials, contact forms, and modern responsive design with performance optimization.",
+      technologies: ["TypeScript", "React", "Tailwind CSS", "Responsive Design"],
       githubUrl: "https://github.com/cozyartz/cmgsite",
       liveUrl: "https://cozyartzmedia.com",
       stars: 0,
       forks: 0,
       language: "TypeScript",
-      lastUpdated: "Recently"
+      lastUpdated: "2024"
     },
     {
-      title: "HippiStuff Boho Website",
-      description: "A boho-themed website featuring creative design and unique aesthetic. Showcases artistic sensibilities and creative web development skills with a focus on user experience.",
-      technologies: ["TypeScript", "React", "Creative Design"],
+      title: "HippiStuff Boutique",
+      description: "Boho-themed e-commerce website featuring unique aesthetic design, product catalogs, and user-friendly shopping experience. Demonstrates creative web development with focus on visual storytelling.",
+      technologies: ["TypeScript", "React", "CSS Animations", "E-commerce"],
       githubUrl: "https://github.com/cozyartz/hippistuff",
       stars: 0,
       forks: 0,
       language: "TypeScript",
-      lastUpdated: "Recently"
+      lastUpdated: "2024"
     },
     {
-      title: "AstroPraxis Website",
-      description: "Modern website built with Astro framework, demonstrating expertise in cutting-edge web technologies and static site generation with optimal performance.",
-      technologies: ["Astro", "Modern Web", "Static Site Generation"],
+      title: "AstroPraxis Framework",
+      description: "High-performance website built with Astro framework showcasing static site generation capabilities. Features optimized loading, SEO best practices, and modern web development patterns.",
+      technologies: ["Astro", "JavaScript", "Static Site Generation", "SEO"],
       githubUrl: "https://github.com/cozyartz/AstroPraxis",
       liveUrl: "https://astropraxis.cc",
       stars: 0,
       forks: 0,
       language: "Astro",
-      lastUpdated: "Recently"
+      lastUpdated: "2024"
     }
   ];
 
