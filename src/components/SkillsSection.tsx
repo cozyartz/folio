@@ -6,7 +6,7 @@ const SkillsSection: React.FC = () => {
     {
       icon: Code,
       title: "Frontend Development",
-      skills: ["React", "TypeScript", "Next.js", "Vue.js", "Tailwind CSS", "Framer Motion"],
+      skills: ["React", "TypeScript", "Next.js", "Vue.js", "Tailwind CSS", "Framer Motion", "Figma"],
       color: "from-blue-500 to-cyan-500"
     },
     {
@@ -36,7 +36,7 @@ const SkillsSection: React.FC = () => {
     {
       icon: Cpu,
       title: "DevOps & Containers",
-      skills: ["Docker", "Docker Compose", "Kubernetes", "AWS", "CI/CD", "Git", "Ansible", "Terraform"],
+      skills: ["Docker", "Docker Compose", "Kubernetes", "AWS", "CI/CD", "Git", "GitHub Copilot", "Ansible", "Terraform"],
       color: "from-indigo-500 to-blue-500"
     },
     {

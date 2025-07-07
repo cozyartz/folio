@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, ExternalLink, ArrowDown } from 'lucide-react';
+import { GitBranch, ExternalLink, ArrowDown, Code, Wrench, Cpu, Palette, Bot } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const scrollToEducation = () => {
@@ -90,6 +90,39 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
+        {/* Tools & Technologies */}
+        <div className="mb-12">
+          <h3 className="text-xl font-semibold text-white mb-6 text-center">
+            Tools & Technologies
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-4 max-w-4xl mx-auto">
+            <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:transform hover:scale-105">
+              <Code className="w-6 h-6 text-blue-400 mx-auto mb-2 group-hover:text-blue-300 transition-colors" />
+              <p className="text-xs text-white/80 text-center">React</p>
+            </div>
+            <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:transform hover:scale-105">
+              <Code className="w-6 h-6 text-emerald-400 mx-auto mb-2 group-hover:text-emerald-300 transition-colors" />
+              <p className="text-xs text-white/80 text-center">TypeScript</p>
+            </div>
+            <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:transform hover:scale-105">
+              <Palette className="w-6 h-6 text-purple-400 mx-auto mb-2 group-hover:text-purple-300 transition-colors" />
+              <p className="text-xs text-white/80 text-center">Figma</p>
+            </div>
+            <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:transform hover:scale-105">
+              <Bot className="w-6 h-6 text-yellow-400 mx-auto mb-2 group-hover:text-yellow-300 transition-colors" />
+              <p className="text-xs text-white/80 text-center">GitHub Copilot</p>
+            </div>
+            <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:transform hover:scale-105">
+              <Wrench className="w-6 h-6 text-blue-400 mx-auto mb-2 group-hover:text-blue-300 transition-colors" />
+              <p className="text-xs text-white/80 text-center">Hardware</p>
+            </div>
+            <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-4 hover:bg-white/20 transition-all duration-300 hover:transform hover:scale-105">
+              <Cpu className="w-6 h-6 text-emerald-400 mx-auto mb-2 group-hover:text-emerald-300 transition-colors" />
+              <p className="text-xs text-white/80 text-center">Systems</p>
+            </div>
+          </div>
+        </div>
+
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
           <a
             href="https://github.com/cozyartz"
@@ -97,7 +130,7 @@ const Hero: React.FC = () => {
             rel="noopener noreferrer"
             className="group flex items-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full text-white font-semibold transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl"
           >
-            <Github className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+            <GitBranch className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
             View GitHub
           </a>
           
