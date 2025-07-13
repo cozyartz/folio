@@ -2,6 +2,35 @@ import React from 'react';
 import ProjectCard from './ProjectCard';
 
 const ProjectsSection: React.FC = () => {
+  // Generate schema markup for projects
+  const generateProjectSchema = () => {
+    const portfolioSchema = {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": "Andrea Cozart-Lundin Portfolio Projects",
+      "creator": {
+        "@type": "Person",
+        "name": "Andrea Cozart-Lundin",
+        "url": "https://portfolio.andreacozart.me"
+      },
+      "hasPart": projects.map(project => ({
+        "@type": "SoftwareApplication",
+        "name": project.title,
+        "description": project.description,
+        "url": project.liveUrl || project.githubUrl,
+        "applicationCategory": "WebApplication",
+        "programmingLanguage": project.language,
+        "creator": {
+          "@type": "Person",
+          "name": "Andrea Cozart-Lundin"
+        },
+        "codeRepository": project.githubUrl,
+        "keywords": project.technologies.join(", ")
+      }))
+    };
+    
+    return JSON.stringify(portfolioSchema);
+  };
   const saasProjects = [
     {
       title: "AstroLMS",
@@ -63,6 +92,7 @@ const ProjectsSection: React.FC = () => {
       description: "Innovative e-commerce platform bridging digital and physical art by enabling NFT etching onto physical materials. Features user authentication, payment processing, and custom manufacturing integration.",
       technologies: ["TypeScript", "React", "Node.js", "E-commerce", "NFT Integration"],
       githubUrl: "https://github.com/cozyartz/etchNFT",
+      liveUrl: "https://etchnft.com",
       stars: 0,
       forks: 0,
       language: "TypeScript",
@@ -103,7 +133,14 @@ const ProjectsSection: React.FC = () => {
   ];
 
   return (
-    <section id="projects" className="relative py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <>
+      {/* Schema markup for projects */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: generateProjectSchema() }}
+      />
+      
+      <section id="projects" className="relative py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
       
       {/* Background Effects */}
@@ -198,7 +235,7 @@ const ProjectsSection: React.FC = () => {
 
                   {/* Stats */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    {Object.entries(project.stats).map(([key, value], statIndex) => (
+                    {Object.entries(project.stats).map(([, value], statIndex) => (
                       <div key={statIndex} className="text-center p-3 bg-slate-800/30 rounded-xl border border-slate-700/30">
                         <div className="text-lg font-bold text-white">{value.split(' ')[0]}</div>
                         <div className="text-sm text-slate-400">{value.split(' ').slice(1).join(' ')}</div>
@@ -262,6 +299,7 @@ const ProjectsSection: React.FC = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
