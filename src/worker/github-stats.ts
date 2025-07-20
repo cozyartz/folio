@@ -3,6 +3,11 @@
  * Generates SVG cards with GitHub user statistics
  */
 
+interface Env {
+  // Add environment variables here if needed
+  ENVIRONMENT?: string;
+}
+
 interface GitHubUser {
   login: string;
   name: string;
