@@ -2,6 +2,7 @@ name = "github-stats-worker"
 main = "src/worker/github-stats.ts"
 compatibility_date = "2024-06-01"
 compatibility_flags = ["nodejs_compat"]
+account_id = "51826042d6e31c694331efeb1be34123"
 
 [env.production]
 name = "github-stats-worker"
