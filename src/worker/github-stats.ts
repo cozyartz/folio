@@ -6,6 +6,7 @@
 interface Env {
   // Add environment variables here if needed
   ENVIRONMENT?: string;
+  GITHUB_STATS_KV?: KVNamespace;
 }
 
 interface GitHubUser {
@@ -55,36 +56,43 @@ export default {
     }
 
     try {
-      // Check cache first
-      const cache = caches.default;
-      const cacheKey = new Request(`https://github-stats/${username}/${theme}`, request);
-      let response = await cache.match(cacheKey);
-
-      if (!response) {
-        // Fetch GitHub data
-        const stats = await fetchGitHubStats(username);
+      // Try to get cached stats from KV first
+      const cacheKey = `github-stats:${username}`;
+      const cachedStats = await env.GITHUB_STATS_KV?.get(cacheKey, 'json');
+      
+      let stats: GitHubStats;
+      
+      if (cachedStats && isCacheValid(cachedStats.timestamp)) {
+        // Use cached data if it's less than 2.5 hours old
+        stats = cachedStats.data;
+      } else {
+        // Fallback: fetch fresh data (this should rarely happen)
+        stats = await fetchGitHubStats(username);
         
-        // Generate SVG
-        const svg = generateStatsCard(stats, username, theme);
-        
-        response = new Response(svg, {
-          headers: {
-            'Content-Type': 'image/svg+xml',
-            'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
-            ...corsHeaders,
-          },
-        });
-
-        // Store in cache
-        ctx.waitUntil(cache.put(cacheKey, response.clone()));
+        // Cache the result
+        const cacheData = {
+          data: stats,
+          timestamp: Date.now()
+        };
+        ctx.waitUntil(env.GITHUB_STATS_KV?.put(cacheKey, JSON.stringify(cacheData)));
       }
-
-      return response;
+      
+      // Generate SVG
+      const svg = generateStatsCard(stats, username, theme);
+      
+      return new Response(svg, {
+        headers: {
+          'Content-Type': 'image/svg+xml',
+          'Cache-Control': 'public, max-age=7200', // Cache for 2 hours
+          ...corsHeaders,
+        },
+      });
     } catch (error) {
       console.error('Error generating GitHub stats:', error);
       
-      // Return error SVG
-      const errorSvg = generateErrorCard(theme);
+      // Return error SVG with error details
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      const errorSvg = generateErrorCard(theme, errorMessage);
       return new Response(errorSvg, {
         status: 200, // Return 200 to prevent broken images
         headers: {
@@ -95,7 +103,42 @@ export default {
       });
     }
   },
+
+  // Scheduled event to update GitHub stats
+  async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
+    console.log('Running scheduled GitHub stats update');
+    
+    const usernames = ['cozyartz']; // Add more usernames if needed
+    
+    for (const username of usernames) {
+      try {
+        console.log(`Updating stats for ${username}`);
+        const stats = await fetchGitHubStats(username);
+        
+        const cacheData = {
+          data: stats,
+          timestamp: Date.now()
+        };
+        
+        const cacheKey = `github-stats:${username}`;
+        await env.GITHUB_STATS_KV?.put(cacheKey, JSON.stringify(cacheData));
+        
+        console.log(`Successfully updated stats for ${username}`);
+        
+        // Wait 1 second between users to be respectful of rate limits
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      } catch (error) {
+        console.error(`Failed to update stats for ${username}:`, error);
+      }
+    }
+  },
 };
+
+function isCacheValid(timestamp: number): boolean {
+  const cacheAge = Date.now() - timestamp;
+  const maxAge = 2.5 * 60 * 60 * 1000; // 2.5 hours in milliseconds
+  return cacheAge < maxAge;
+}
 
 async function fetchGitHubStats(username: string): Promise<GitHubStats> {
   const headers = {
@@ -103,41 +146,68 @@ async function fetchGitHubStats(username: string): Promise<GitHubStats> {
     'Accept': 'application/vnd.github.v3+json',
   };
 
-  // Fetch user data
-  const userResponse = await fetch(`https://api.github.com/users/${username}`, { headers });
-  if (!userResponse.ok) {
-    throw new Error(`Failed to fetch user data: ${userResponse.status}`);
-  }
-  const userData: GitHubUser = await userResponse.json();
-
-  // Fetch repositories
-  const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`, { headers });
-  if (!reposResponse.ok) {
-    throw new Error(`Failed to fetch repositories: ${reposResponse.status}`);
-  }
-  const repos: GitHubRepo[] = await reposResponse.json();
-
-  // Calculate stats
-  const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
-  const totalForks = repos.reduce((sum, repo) => sum + repo.forks_count, 0);
-  
-  // Count languages
-  const topLanguages: { [key: string]: number } = {};
-  repos.forEach(repo => {
-    if (repo.language) {
-      topLanguages[repo.language] = (topLanguages[repo.language] || 0) + 1;
+  try {
+    // Fetch user data with better error handling
+    const userResponse = await fetch(`https://api.github.com/users/${username}`, { headers });
+    
+    if (userResponse.status === 404) {
+      throw new Error(`User '${username}' not found`);
     }
-  });
+    
+    if (userResponse.status === 403) {
+      throw new Error('GitHub API rate limit exceeded');
+    }
+    
+    if (!userResponse.ok) {
+      throw new Error(`GitHub API error: ${userResponse.status} ${userResponse.statusText}`);
+    }
+    
+    const userData: GitHubUser = await userResponse.json();
 
-  return {
-    totalStars,
-    totalForks,
-    totalRepos: userData.public_repos,
-    followers: userData.followers,
-    following: userData.following,
-    joinedYear: new Date(userData.created_at).getFullYear(),
-    topLanguages,
-  };
+    // Fetch repositories with same error handling
+    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`, { headers });
+    
+    if (!reposResponse.ok) {
+      console.warn('Failed to fetch repos, using user data only');
+      // Return stats with just user data if repos fail
+      return {
+        totalStars: 0,
+        totalForks: 0,
+        totalRepos: userData.public_repos,
+        followers: userData.followers,
+        following: userData.following,
+        joinedYear: new Date(userData.created_at).getFullYear(),
+        topLanguages: {},
+      };
+    }
+    
+    const repos: GitHubRepo[] = await reposResponse.json();
+
+    // Calculate stats
+    const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+    const totalForks = repos.reduce((sum, repo) => sum + repo.forks_count, 0);
+    
+    // Count languages
+    const topLanguages: { [key: string]: number } = {};
+    repos.forEach(repo => {
+      if (repo.language) {
+        topLanguages[repo.language] = (topLanguages[repo.language] || 0) + 1;
+      }
+    });
+
+    return {
+      totalStars,
+      totalForks,
+      totalRepos: userData.public_repos,
+      followers: userData.followers,
+      following: userData.following,
+      joinedYear: new Date(userData.created_at).getFullYear(),
+      topLanguages,
+    };
+  } catch (error) {
+    console.error('Error fetching GitHub data:', error);
+    throw error;
+  }
 }
 
 function generateStatsCard(stats: GitHubStats, username: string, theme: string): string {
@@ -249,21 +319,31 @@ function generateStatsCard(stats: GitHubStats, username: string, theme: string):
 </svg>`.trim();
 }
 
-function generateErrorCard(theme: string): string {
+function generateErrorCard(theme: string, error?: string): string {
   const isDark = theme === 'dark';
   const bgColor = isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)';
   const textColor = isDark ? '#ffffff' : '#1e293b';
   const subtitleColor = isDark ? '#94a3b8' : '#64748b';
+  const errorColor = '#ef4444';
+
+  const errorMessage = error && error.includes('rate limit') 
+    ? 'GitHub API rate limit reached'
+    : error && error.includes('not found')
+    ? 'User not found'
+    : 'Stats temporarily unavailable';
 
   return `
 <svg width="495" height="195" viewBox="0 0 495 195" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="495" height="195" rx="10" fill="${bgColor}" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
   
-  <text x="247.5" y="90" font-family="'Segoe UI', Ubuntu, Sans-Serif" font-size="16" font-weight="600" fill="${textColor}" text-anchor="middle">
-    GitHub Stats Unavailable
+  <circle cx="247.5" cy="70" r="20" fill="${errorColor}" opacity="0.1"/>
+  <text x="247.5" y="77" font-family="'Segoe UI', Ubuntu, Sans-Serif" font-size="24" font-weight="600" fill="${errorColor}" text-anchor="middle">!</text>
+  
+  <text x="247.5" y="110" font-family="'Segoe UI', Ubuntu, Sans-Serif" font-size="16" font-weight="600" fill="${textColor}" text-anchor="middle">
+    ${errorMessage}
   </text>
   
-  <text x="247.5" y="115" font-family="'Segoe UI', Ubuntu, Sans-Serif" font-size="12" fill="${subtitleColor}" text-anchor="middle">
+  <text x="247.5" y="135" font-family="'Segoe UI', Ubuntu, Sans-Serif" font-size="12" fill="${subtitleColor}" text-anchor="middle">
     Please try again later
   </text>
 </svg>`.trim();

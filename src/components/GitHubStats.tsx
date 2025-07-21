@@ -11,7 +11,7 @@ const GitHubStats: React.FC<GitHubStatsProps> = ({
   theme = 'dark',
   className = ''
 }) => {
-  const statsUrl = `https://stats.andreacozart.me?username=${username}&theme=${theme}`;
+  const statsUrl = `https://github-stats-worker.cozyartz.workers.dev?username=${username}&theme=${theme}`;
   
   return (
     <div className={`flex justify-center ${className}`}>
