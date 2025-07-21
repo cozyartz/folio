@@ -4,9 +4,9 @@ compatibility_date = "2024-06-01"
 compatibility_flags = ["nodejs_compat"]
 account_id = "51826042d6e31c694331efeb1be34123"
 
-# Cron trigger - runs every 2.5 hours (10 times per day)
+# Cron trigger - runs every 4 hours (6 times per day)
 [triggers]
-crons = ["30 */2 * * *"]
+crons = ["0 */4 * * *"]
 
 # KV namespace binding
 [[kv_namespaces]]
@@ -19,8 +19,16 @@ routes = [
   { pattern = "stats.andreacozart.me", custom_domain = true }
 ]
 
+[[env.production.kv_namespaces]]
+binding = "GITHUB_STATS_KV"
+id = "e9699c862f9f4744acc39e467859d47e"
+
 [env.development]
 name = "github-stats-worker-dev"
+
+[[env.development.kv_namespaces]]
+binding = "GITHUB_STATS_KV"
+id = "e9699c862f9f4744acc39e467859d47e"
 
 [[env.production.vars]]
 name = "ENVIRONMENT"
