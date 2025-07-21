@@ -18,9 +18,13 @@ const Hero: React.FC = () => {
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-conic from-blue-500/20 via-transparent to-emerald-500/20 rounded-full blur-3xl animate-spin" style={{ animationDuration: '20s' }} />
 
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        {/* Profile Image Placeholder */}
-        <div className="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-blue-400 to-emerald-400 rounded-full flex items-center justify-center shadow-2xl">
-          <span className="text-4xl font-bold text-white">AC</span>
+        {/* Profile Image */}
+        <div className="w-32 h-32 mx-auto mb-8 rounded-full shadow-2xl ring-4 ring-white/20 hover:ring-white/40 transition-all duration-300 hover:transform hover:scale-110 overflow-hidden">
+          <img 
+            src="/profile-avatar.png" 
+            alt="Andrea Cozart-Lundin Profile"
+            className="w-full h-full object-cover rounded-full"
+          />
         </div>
 
         <h1 className="text-6xl md:text-7xl font-bold text-white mb-6 leading-tight">
