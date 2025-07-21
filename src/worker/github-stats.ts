@@ -44,7 +44,7 @@ export default {
     // CORS headers
     const corsHeaders = {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     };
 
@@ -52,9 +52,12 @@ export default {
       return new Response(null, { headers: corsHeaders });
     }
 
-    if (request.method !== 'GET') {
+    if (request.method !== 'GET' && request.method !== 'HEAD') {
       return new Response('Method not allowed', { status: 405, headers: corsHeaders });
     }
+
+    // Handle HEAD requests - return headers only
+    const isHeadRequest = request.method === 'HEAD';
 
     // Manual cache refresh endpoint (admin only)
     if (url.pathname === '/refresh-cache') {
@@ -100,10 +103,11 @@ export default {
         
         const svg = generateStatsCard(stats, username, theme);
         
-        return new Response(svg, {
+        return new Response(isHeadRequest ? null : svg, {
           headers: {
             'Content-Type': 'image/svg+xml',
             'Cache-Control': 'public, max-age=14400', // Cache for 4 hours
+            'Content-Length': svg.length.toString(),
             ...corsHeaders,
           },
         });
@@ -111,10 +115,11 @@ export default {
         // No cached data available - return placeholder
         console.log('No cached data available for', username);
         const placeholderSvg = generatePlaceholderCard(theme, username);
-        return new Response(placeholderSvg, {
+        return new Response(isHeadRequest ? null : placeholderSvg, {
           headers: {
             'Content-Type': 'image/svg+xml',
             'Cache-Control': 'public, max-age=300', // Cache placeholder for 5 minutes
+            'Content-Length': placeholderSvg.length.toString(),
             ...corsHeaders,
           },
         });
@@ -123,11 +128,12 @@ export default {
       console.error('Error serving GitHub stats:', error);
       
       const errorSvg = generateErrorCard(theme, 'Service temporarily unavailable');
-      return new Response(errorSvg, {
+      return new Response(isHeadRequest ? null : errorSvg, {
         status: 200,
         headers: {
           'Content-Type': 'image/svg+xml',
           'Cache-Control': 'public, max-age=300',
+          'Content-Length': errorSvg.length.toString(),
           ...corsHeaders,
         },
       });
