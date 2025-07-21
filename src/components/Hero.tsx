@@ -139,7 +139,7 @@ const Hero: React.FC = () => {
           </a>
           
           <a
-            href="https://portfolio.andreacozart.me"
+            href="https://andreacozart.me"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600 rounded-full text-white font-semibold transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl"

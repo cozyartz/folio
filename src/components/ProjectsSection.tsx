@@ -11,7 +11,7 @@ const ProjectsSection: React.FC = () => {
       "creator": {
         "@type": "Person",
         "name": "Andrea Cozart-Lundin",
-        "url": "https://portfolio.andreacozart.me"
+        "url": "https://andreacozart.me"
       },
       "hasPart": projects.map(project => ({
         "@type": "SoftwareApplication",
@@ -70,7 +70,7 @@ const ProjectsSection: React.FC = () => {
       description: "Personal portfolio showcasing full-stack development expertise with React, TypeScript, and Vite. Features responsive design, smooth animations, GitHub integration, and optimized performance with modern web technologies.",
       technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Lucide React"],
       githubUrl: "https://github.com/cozyartz/folio",
-      liveUrl: "https://portfolio.andreacozart.me",
+      liveUrl: "https://andreacozart.me",
       stars: 0,
       forks: 0,
       language: "TypeScript",
