@@ -35,6 +35,7 @@ interface GitHubStats {
 }
 
 export default {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const username = url.searchParams.get('username') || 'cozyartz';
@@ -134,6 +135,7 @@ export default {
   },
 
   // Scheduled event to update GitHub stats
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async scheduled(event: ScheduledEvent, env: Env, ctx: ExecutionContext) {
     console.log('Running scheduled GitHub stats update');
     
