@@ -55,49 +55,78 @@ export default {
       return new Response('Method not allowed', { status: 405, headers: corsHeaders });
     }
 
-    try {
-      // Try to get cached stats from KV first
-      const cacheKey = `github-stats:${username}`;
-      const cachedStats = await env.GITHUB_STATS_KV?.get(cacheKey, 'json');
-      
-      let stats: GitHubStats;
-      
-      if (cachedStats && isCacheValid(cachedStats.timestamp)) {
-        // Use cached data if it's less than 2.5 hours old
-        stats = cachedStats.data;
-      } else {
-        // Fallback: fetch fresh data (this should rarely happen)
-        stats = await fetchGitHubStats(username);
-        
-        // Cache the result
+    // Manual cache refresh endpoint (admin only)
+    if (url.pathname === '/refresh-cache') {
+      try {
+        console.log('Manual cache refresh for', username);
+        const stats = await fetchGitHubStats(username);
         const cacheData = {
           data: stats,
           timestamp: Date.now()
         };
-        ctx.waitUntil(env.GITHUB_STATS_KV?.put(cacheKey, JSON.stringify(cacheData)));
+        const cacheKey = `github-stats:${username}`;
+        
+        if (env.GITHUB_STATS_KV) {
+          await env.GITHUB_STATS_KV.put(cacheKey, JSON.stringify(cacheData));
+          return new Response(`Cache refreshed successfully for ${username}`, { headers: corsHeaders });
+        } else {
+          return new Response('KV not available', { status: 500, headers: corsHeaders });
+        }
+      } catch (error) {
+        console.error('Refresh error:', error);
+        return new Response(`Error: ${error}`, { status: 500, headers: corsHeaders });
+      }
+    }
+
+    try {
+      // ONLY use cached data - never fallback to API calls during visitor requests
+      const cacheKey = `github-stats:${username}`;
+      let cachedStats = null;
+      
+      if (env.GITHUB_STATS_KV) {
+        try {
+          const cached = await env.GITHUB_STATS_KV.get(cacheKey, 'json');
+          cachedStats = cached;
+        } catch (kvError) {
+          console.warn('KV error:', kvError);
+        }
       }
       
-      // Generate SVG
-      const svg = generateStatsCard(stats, username, theme);
-      
-      return new Response(svg, {
-        headers: {
-          'Content-Type': 'image/svg+xml',
-          'Cache-Control': 'public, max-age=7200', // Cache for 2 hours
-          ...corsHeaders,
-        },
-      });
+      if (cachedStats && cachedStats.data) {
+        // Use cached data regardless of age - scheduled updates keep it fresh
+        const stats = cachedStats.data;
+        console.log('Serving cached data for', username);
+        
+        const svg = generateStatsCard(stats, username, theme);
+        
+        return new Response(svg, {
+          headers: {
+            'Content-Type': 'image/svg+xml',
+            'Cache-Control': 'public, max-age=14400', // Cache for 4 hours
+            ...corsHeaders,
+          },
+        });
+      } else {
+        // No cached data available - return placeholder
+        console.log('No cached data available for', username);
+        const placeholderSvg = generatePlaceholderCard(theme, username);
+        return new Response(placeholderSvg, {
+          headers: {
+            'Content-Type': 'image/svg+xml',
+            'Cache-Control': 'public, max-age=300', // Cache placeholder for 5 minutes
+            ...corsHeaders,
+          },
+        });
+      }
     } catch (error) {
-      console.error('Error generating GitHub stats:', error);
+      console.error('Error serving GitHub stats:', error);
       
-      // Return error SVG with error details
-      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      const errorSvg = generateErrorCard(theme, errorMessage);
+      const errorSvg = generateErrorCard(theme, 'Service temporarily unavailable');
       return new Response(errorSvg, {
-        status: 200, // Return 200 to prevent broken images
+        status: 200,
         headers: {
           'Content-Type': 'image/svg+xml',
-          'Cache-Control': 'public, max-age=300', // Cache errors for 5 minutes
+          'Cache-Control': 'public, max-age=300',
           ...corsHeaders,
         },
       });
@@ -133,12 +162,6 @@ export default {
     }
   },
 };
-
-function isCacheValid(timestamp: number): boolean {
-  const cacheAge = Date.now() - timestamp;
-  const maxAge = 2.5 * 60 * 60 * 1000; // 2.5 hours in milliseconds
-  return cacheAge < maxAge;
-}
 
 async function fetchGitHubStats(username: string): Promise<GitHubStats> {
   const headers = {
@@ -208,6 +231,31 @@ async function fetchGitHubStats(username: string): Promise<GitHubStats> {
     console.error('Error fetching GitHub data:', error);
     throw error;
   }
+}
+
+function generatePlaceholderCard(theme: string, username: string): string {
+  const isDark = theme === 'dark';
+  const bgColor = isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)';
+  const textColor = isDark ? '#ffffff' : '#1e293b';
+  const subtitleColor = isDark ? '#94a3b8' : '#64748b';
+  const accentColor = '#3b82f6';
+
+  return `
+<svg width="495" height="195" viewBox="0 0 495 195" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="495" height="195" rx="10" fill="${bgColor}" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+  
+  <circle cx="247.5" cy="70" r="15" fill="${accentColor}" opacity="0.2">
+    <animateTransform attributeName="transform" type="rotate" values="0 247.5 70;360 247.5 70" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <text x="247.5" y="105" font-family="'Segoe UI', Ubuntu, Sans-Serif" font-size="16" font-weight="600" fill="${textColor}" text-anchor="middle">
+    Loading ${username}'s Stats...
+  </text>
+  
+  <text x="247.5" y="125" font-family="'Segoe UI', Ubuntu, Sans-Serif" font-size="12" fill="${subtitleColor}" text-anchor="middle">
+    Stats will appear within 4 hours
+  </text>
+</svg>`.trim();
 }
 
 function generateStatsCard(stats: GitHubStats, username: string, theme: string): string {

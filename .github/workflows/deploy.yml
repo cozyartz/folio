@@ -38,7 +38,7 @@ jobs:
           directory: dist
 
       - name: Deploy GitHub Stats Worker
-        run: npx wrangler deploy --compatibility-date=2024-06-01
+        run: npx wrangler deploy --env production
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: 51826042d6e31c694331efeb1be34123

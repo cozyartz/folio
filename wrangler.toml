@@ -4,36 +4,35 @@ compatibility_date = "2024-06-01"
 compatibility_flags = ["nodejs_compat"]
 account_id = "51826042d6e31c694331efeb1be34123"
 
-# Cron trigger - runs every 4 hours (6 times per day)
-[triggers]
-crons = ["0 */4 * * *"]
-
-# KV namespace binding
-[[kv_namespaces]]
-binding = "GITHUB_STATS_KV"
-id = "e9699c862f9f4744acc39e467859d47e"
-
+# Production environment configuration
 [env.production]
 name = "github-stats-worker"
 routes = [
   { pattern = "stats.andreacozart.me", custom_domain = true }
 ]
 
+# Cron trigger for production - runs every 4 hours
+[env.production.triggers]
+crons = ["0 */4 * * *"]
+
+# KV namespace for production
 [[env.production.kv_namespaces]]
 binding = "GITHUB_STATS_KV"
 id = "e9699c862f9f4744acc39e467859d47e"
 
+# Environment variable for production
+[[env.production.vars]]
+ENVIRONMENT = "production"
+
+# Development environment configuration
 [env.development]
 name = "github-stats-worker-dev"
 
+# KV namespace for development
 [[env.development.kv_namespaces]]
 binding = "GITHUB_STATS_KV"
 id = "e9699c862f9f4744acc39e467859d47e"
 
-[[env.production.vars]]
-name = "ENVIRONMENT"
-value = "production"
-
+# Environment variable for development
 [[env.development.vars]]
-name = "ENVIRONMENT" 
-value = "development"
+ENVIRONMENT = "development"
