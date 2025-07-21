@@ -11,9 +11,9 @@ To enable automatic deployment, add these secrets to your GitHub repository sett
    - Create a token with "Cloudflare Pages:Edit" permissions
    - Add this token as a GitHub secret
 
-2. **CLOUDFLARE_ACCOUNT_ID** _(Already configured in workflow)_
-   - Account ID: `51826042d6e31c694331efeb1be34123`
-   - This is already hardcoded in the workflow file
+2. **CLOUDFLARE_ACCOUNT_ID**
+   - Get your account ID from Cloudflare Dashboard
+   - Add this as a GitHub secret
 
 ## Cloudflare Pages Setup
 
