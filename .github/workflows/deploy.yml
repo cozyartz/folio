@@ -33,7 +33,7 @@ jobs:
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: 51826042d6e31c694331efeb1be34123  # TODO: Move to GitHub secrets
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: folio
           directory: dist
           wranglerVersion: '3'
@@ -42,5 +42,5 @@ jobs:
         run: npx wrangler deploy --env production
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: 51826042d6e31c694331efeb1be34123  # TODO: Move to GitHub secrets
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
