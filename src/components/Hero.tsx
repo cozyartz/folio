@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
         {/* Profile Image */}
         <div className="w-32 h-32 mx-auto mb-8 rounded-full shadow-2xl ring-4 ring-white/20 hover:ring-white/40 transition-all duration-300 hover:transform hover:scale-110 overflow-hidden">
           <img 
-            src="/profile-avatar.png" 
+            src="/Cozy1.png" 
             alt="Andrea Cozart-Lundin Profile"
             className="w-full h-full object-cover rounded-full"
           />
