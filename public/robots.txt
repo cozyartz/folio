@@ -1,22 +1,48 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://portfolio.andreacozart.me/sitemap.xml
+Sitemap: https://andreacozart.me/sitemap.xml
 
 # Specific crawling rules for search engines
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Slurp
 Allow: /
+Crawl-delay: 2
 
-# Block access to development files
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+# Block access to development and system files
 User-agent: *
 Disallow: /src/
 Disallow: /node_modules/
 Disallow: /.git/
 Disallow: /dist/
 Disallow: /build/
+Disallow: /*.json$
+Disallow: /*.map$
+Disallow: /worker/
+Disallow: /api/
+
+# Performance optimization - allow important assets
+User-agent: *
+Allow: /favicon.png
+Allow: /Cozy1.png
+Allow: /site.webmanifest

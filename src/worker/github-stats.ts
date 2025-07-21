@@ -34,6 +34,21 @@ interface GitHubStats {
   topLanguages: { [key: string]: number };
 }
 
+interface ContributionDay {
+  date: string;
+  count: number;
+  level: 0 | 1 | 2 | 3 | 4;
+}
+
+interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}
+
+interface ContributionsData {
+  totalContributions: number;
+  weeks: ContributionWeek[];
+}
+
 export default {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -58,6 +73,11 @@ export default {
 
     // Handle HEAD requests - return headers only
     const isHeadRequest = request.method === 'HEAD';
+
+    // Handle contributions endpoint
+    if (url.pathname === '/contributions') {
+      return await handleContributions(username, env, corsHeaders, isHeadRequest);
+    }
 
     // Manual cache refresh endpoint (admin only)
     if (url.pathname === '/refresh-cache') {
@@ -162,8 +182,26 @@ export default {
         
         console.log(`Successfully updated stats for ${username}`);
         
-        // Wait 1 second between users to be respectful of rate limits
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        // Also update contributions data
+        try {
+          console.log(`Updating contributions for ${username}`);
+          const contributions = await fetchGitHubContributions(username);
+          
+          const contributionsCacheData = {
+            data: contributions,
+            timestamp: Date.now()
+          };
+          
+          const contributionsCacheKey = `github-contributions:${username}`;
+          await env.GITHUB_STATS_KV?.put(contributionsCacheKey, JSON.stringify(contributionsCacheData));
+          
+          console.log(`Successfully updated contributions for ${username}`);
+        } catch (contributionsError) {
+          console.error(`Failed to update contributions for ${username}:`, contributionsError);
+        }
+        
+        // Wait 2 seconds between users to be respectful of rate limits
+        await new Promise(resolve => setTimeout(resolve, 2000));
       } catch (error) {
         console.error(`Failed to update stats for ${username}:`, error);
       }
@@ -438,4 +476,151 @@ function getLanguageColor(language: string): string {
   };
   
   return colors[language] || '#6b7280';
+}
+
+async function handleContributions(
+  username: string, 
+  env: Env, 
+  corsHeaders: Record<string, string>,
+  isHeadRequest: boolean
+): Promise<Response> {
+  try {
+    // Check cache first
+    const cacheKey = `github-contributions:${username}`;
+    let cachedData = null;
+    
+    if (env.GITHUB_STATS_KV) {
+      try {
+        const cached = await env.GITHUB_STATS_KV.get(cacheKey, 'json');
+        cachedData = cached;
+      } catch (kvError) {
+        console.warn('KV error fetching contributions:', kvError);
+      }
+    }
+    
+    if (cachedData && (cachedData as any).data) {
+      console.log('Serving cached contributions data for', username);
+      const jsonResponse = JSON.stringify((cachedData as any).data);
+      
+      return new Response(isHeadRequest ? null : jsonResponse, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'public, max-age=14400', // Cache for 4 hours
+          'Content-Length': jsonResponse.length.toString(),
+          ...corsHeaders,
+        },
+      });
+    } else {
+      // No cached data - return empty response
+      const emptyResponse = JSON.stringify({
+        totalContributions: 0,
+        weeks: []
+      });
+      
+      return new Response(isHeadRequest ? null : emptyResponse, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'public, max-age=300', // Cache for 5 minutes
+          'Content-Length': emptyResponse.length.toString(),
+          ...corsHeaders,
+        },
+      });
+    }
+  } catch (error) {
+    console.error('Error serving GitHub contributions:', error);
+    
+    const errorResponse = JSON.stringify({ error: 'Failed to fetch contributions' });
+    return new Response(isHeadRequest ? null : errorResponse, {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'public, max-age=300',
+        'Content-Length': errorResponse.length.toString(),
+        ...corsHeaders,
+      },
+    });
+  }
+}
+
+async function fetchGitHubContributions(username: string): Promise<ContributionsData> {
+  // GitHub GraphQL API query for contribution data
+  const query = `
+    query($username: String!) {
+      user(login: $username) {
+        contributionsCollection {
+          totalCommitContributions
+          contributionCalendar {
+            totalContributions
+            weeks {
+              contributionDays {
+                date
+                contributionCount
+                contributionLevel
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const headers = {
+    'Content-Type': 'application/json',
+    'User-Agent': 'GitHub-Stats-Worker',
+  };
+
+  try {
+    const response = await fetch('https://api.github.com/graphql', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        query,
+        variables: { username }
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`GraphQL request failed: ${response.status}`);
+    }
+
+    const data: any = await response.json();
+    
+    if (data.errors) {
+      throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
+    }
+
+    const contributionCalendar = data.data?.user?.contributionsCollection?.contributionCalendar;
+    
+    if (!contributionCalendar) {
+      throw new Error('No contribution data found');
+    }
+
+    // Convert GitHub's contributionLevel enum to numbers
+    const mapLevel = (level: string): 0 | 1 | 2 | 3 | 4 => {
+      switch (level) {
+        case 'NONE': return 0;
+        case 'FIRST_QUARTILE': return 1;
+        case 'SECOND_QUARTILE': return 2;
+        case 'THIRD_QUARTILE': return 3;
+        case 'FOURTH_QUARTILE': return 4;
+        default: return 0;
+      }
+    };
+
+    const weeks = contributionCalendar.weeks.map((week: any) => ({
+      contributionDays: week.contributionDays.map((day: any) => ({
+        date: day.date,
+        count: day.contributionCount,
+        level: mapLevel(day.contributionLevel)
+      }))
+    }));
+
+    return {
+      totalContributions: contributionCalendar.totalContributions,
+      weeks
+    };
+  } catch (error) {
+    console.error('Error fetching GitHub contributions:', error);
+    throw error;
+  }
 }
