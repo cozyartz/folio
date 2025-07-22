@@ -49,6 +49,31 @@ interface ContributionsData {
   weeks: ContributionWeek[];
 }
 
+interface GitHubGraphQLResponse {
+  data?: {
+    user?: {
+      contributionsCollection?: {
+        contributionCalendar?: {
+          totalContributions: number;
+          weeks: Array<{
+            contributionDays: Array<{
+              date: string;
+              contributionCount: number;
+              contributionLevel: string;
+            }>;
+          }>;
+        };
+      };
+    };
+  };
+  errors?: Array<{ message: string }>;
+}
+
+interface CachedContributionsData {
+  data: ContributionsData;
+  timestamp: number;
+}
+
 export default {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
@@ -498,9 +523,9 @@ async function handleContributions(
       }
     }
     
-    if (cachedData && (cachedData as any).data) {
+    if (cachedData && (cachedData as CachedContributionsData).data) {
       console.log('Serving cached contributions data for', username);
-      const jsonResponse = JSON.stringify((cachedData as any).data);
+      const jsonResponse = JSON.stringify((cachedData as CachedContributionsData).data);
       
       return new Response(isHeadRequest ? null : jsonResponse, {
         headers: {
@@ -583,7 +608,7 @@ async function fetchGitHubContributions(username: string): Promise<Contributions
       throw new Error(`GraphQL request failed: ${response.status}`);
     }
 
-    const data: any = await response.json();
+    const data: GitHubGraphQLResponse = await response.json();
     
     if (data.errors) {
       throw new Error(`GraphQL errors: ${JSON.stringify(data.errors)}`);
@@ -607,8 +632,8 @@ async function fetchGitHubContributions(username: string): Promise<Contributions
       }
     };
 
-    const weeks = contributionCalendar.weeks.map((week: any) => ({
-      contributionDays: week.contributionDays.map((day: any) => ({
+    const weeks = contributionCalendar.weeks.map((week) => ({
+      contributionDays: week.contributionDays.map((day) => ({
         date: day.date,
         count: day.contributionCount,
         level: mapLevel(day.contributionLevel)

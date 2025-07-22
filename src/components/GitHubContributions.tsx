@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 interface ContributionDay {
   date: string;
@@ -30,11 +30,7 @@ const GitHubContributions: React.FC<GitHubContributionsProps> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
-    fetchContributions();
-  }, [username]);
-
-  const fetchContributions = async () => {
+  const fetchContributions = useCallback(async () => {
     setIsLoading(true);
     setHasError(false);
     
@@ -51,7 +47,11 @@ const GitHubContributions: React.FC<GitHubContributionsProps> = ({
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [username]);
+
+  useEffect(() => {
+    fetchContributions();
+  }, [fetchContributions]);
 
   const getContributionColor = (level: number): string => {
     if (theme === 'dark') {

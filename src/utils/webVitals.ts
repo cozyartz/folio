@@ -8,11 +8,18 @@ interface Metric {
   delta: number;
 }
 
+// Extend Window interface to include gtag
+declare global {
+  interface Window {
+    gtag?: (command: string, action: string, parameters: Record<string, unknown>) => void;
+  }
+}
+
 // Function to send metrics to analytics
 const sendToAnalytics = (metric: Metric) => {
   // Send to Google Analytics 4 if available
-  if (typeof window !== 'undefined' && (window as any).gtag) {
-    (window as any).gtag('event', metric.name, {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', metric.name, {
       value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
       event_category: 'Web Vitals',
       event_label: metric.id,
@@ -55,9 +62,14 @@ export const observePerformance = () => {
 
       // Monitor layout shifts
       const clsObserver = new PerformanceObserver((list) => {
-        list.getEntries().forEach((entry: any) => {
-          if (!entry.hadRecentInput) {
-            console.log('Layout shift:', entry.value);
+        list.getEntries().forEach((entry) => {
+          // Cast to LayoutShift since TypeScript doesn't have this type yet
+          const layoutShiftEntry = entry as PerformanceEntry & { 
+            hadRecentInput?: boolean; 
+            value?: number; 
+          };
+          if (!layoutShiftEntry.hadRecentInput) {
+            console.log('Layout shift:', layoutShiftEntry.value);
           }
         });
       });
