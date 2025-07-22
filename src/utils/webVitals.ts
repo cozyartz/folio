@@ -11,8 +11,8 @@ interface Metric {
 // Function to send metrics to analytics
 const sendToAnalytics = (metric: Metric) => {
   // Send to Google Analytics 4 if available
-  if (typeof gtag !== 'undefined') {
-    gtag('event', metric.name, {
+  if (typeof window !== 'undefined' && (window as any).gtag) {
+    (window as any).gtag('event', metric.name, {
       value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
       event_category: 'Web Vitals',
       event_label: metric.id,
