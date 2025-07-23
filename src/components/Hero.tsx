@@ -1,6 +1,5 @@
 import React from 'react';
 import { GitBranch, ExternalLink, ArrowDown, Code, Wrench, Cpu, Palette, Bot } from 'lucide-react';
-import GitHubContributions from './GitHubContributions';
 
 const Hero: React.FC = () => {
   const scrollToEducation = () => {
@@ -50,63 +49,7 @@ const Hero: React.FC = () => {
           From web applications to custom drones, I bring innovative solutions to life with a unique perspective shaped by neurodiversity—seeing connections others miss and solving problems from unexpected angles.
         </p>
 
-        {/* GitHub Activity */}
-        <div className="mb-12 space-y-8">
-          <div className="flex justify-center">
-            <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/20 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl">
-              <h3 className="text-lg font-semibold text-white mb-4 text-center group-hover:text-blue-300 transition-colors duration-300">
-                GitHub Stats
-              </h3>
-              <div className="relative overflow-hidden rounded-lg">
-                {/* Loading skeleton with pulse animation */}
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-800/50 via-slate-700/50 to-slate-800/50 animate-pulse rounded-lg opacity-100 transition-opacity duration-1000 group-hover:opacity-0" />
-                
-                {/* Shimmer effect that sweeps across */}
-                <div className="absolute inset-0 -translate-x-full animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent rounded-lg" />
-                
-                {/* Floating particles effect */}
-                <div className="absolute inset-0 opacity-30">
-                  <div className="absolute top-2 left-4 w-1 h-1 bg-blue-400 rounded-full animate-ping" style={{ animationDelay: '0s' }} />
-                  <div className="absolute top-6 right-8 w-1 h-1 bg-emerald-400 rounded-full animate-ping" style={{ animationDelay: '1s' }} />
-                  <div className="absolute bottom-4 left-12 w-1 h-1 bg-purple-400 rounded-full animate-ping" style={{ animationDelay: '2s' }} />
-                  <div className="absolute bottom-8 right-4 w-1 h-1 bg-yellow-400 rounded-full animate-ping" style={{ animationDelay: '0.5s' }} />
-                </div>
-                
-                <img
-                  src="https://stats.andreacozart.me/?username=cozyartz&theme=dark"
-                  alt="Andrea Cozart-Lundin's GitHub statistics showing repositories, stars, followers, and programming languages"
-                  className="rounded-lg max-w-full h-auto relative z-10 transition-all duration-500 group-hover:brightness-110 group-hover:contrast-110"
-                  loading="lazy"
-                  width="495"
-                  height="195"
-                  onLoad={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    const skeleton = target.parentElement?.querySelector('.animate-pulse');
-                    if (skeleton) {
-                      skeleton.classList.add('opacity-0');
-                    }
-                  }}
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'text-white/70 text-center py-8 px-4 relative z-10';
-                    errorDiv.innerHTML = '<p>GitHub stats temporarily unavailable</p>';
-                    target.parentElement?.appendChild(errorDiv);
-                  }}
-                />
-                
-                {/* Glow effect on hover */}
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500/20 via-emerald-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
-              </div>
-            </div>
-          </div>
-          
-          {/* GitHub Contributions */}
-          <div className="flex justify-center">
-            <GitHubContributions username="cozyartz" theme="dark" className="max-w-4xl w-full" />
-          </div>
-        </div>
+
 
         {/* Tools & Technologies */}
         <div className="mb-12">
