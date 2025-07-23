@@ -8,7 +8,6 @@ const EducationSection = lazy(() => import('./components/EducationSection'));
 const ProjectsSection = lazy(() => import('./components/ProjectsSection'));
 const SkillsSection = lazy(() => import('./components/SkillsSection'));
 const ToolsSection = lazy(() => import('./components/ToolsSection'));
-const GitHubStats = lazy(() => import('./components/GitHubStats'));
 const ContactSection = lazy(() => import('./components/ContactSection'));
 
 // Loading component
@@ -41,16 +40,6 @@ function App() {
           <section id="skills" aria-label="Skills and Technologies">
             <SkillsSection />
             <ToolsSection />
-          </section>
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <section className="py-20 px-6" aria-label="GitHub Activity">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-white mb-8 text-center">
-                GitHub Activity
-              </h2>
-              <GitHubStats username="cozyartz" theme="dark" />
-            </div>
           </section>
         </Suspense>
         <Suspense fallback={<SectionLoader />}>
