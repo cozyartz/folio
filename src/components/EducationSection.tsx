@@ -82,9 +82,47 @@ const EducationSection: React.FC = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <p className="text-slate-400 text-lg italic">
+          <p className="text-slate-400 text-lg italic mb-8">
             "Former Techie Truck Driver turned Web Developer - proving that the best journeys are the ones that surprise you"
           </p>
+          
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-white mb-6">My Philosophy & Approach</h3>
+            <div className="grid md:grid-cols-2 gap-6 text-left">
+              <div>
+                <h4 className="text-lg font-semibold text-emerald-400 mb-3">Neurodiversity as a Superpower</h4>
+                <p className="text-slate-300 leading-relaxed">
+                  My neurodivergent perspective allows me to see patterns and connections that others might miss. 
+                  This unique viewpoint drives innovative problem-solving approaches in both code and hardware design. 
+                  I leverage this cognitive diversity to create solutions that are not just functional, but truly transformative.
+                </p>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold text-blue-400 mb-3">Bridging Digital & Physical</h4>
+                <p className="text-slate-300 leading-relaxed">
+                  My journey from trucking technology to web development, combined with my passion for hardware hacking 
+                  and drone building, gives me a unique perspective on how digital solutions can impact the physical world. 
+                  I create applications that don't just exist in browsers, but connect to real-world systems and processes.
+                </p>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold text-purple-400 mb-3">Continuous Learning</h4>
+                <p className="text-slate-300 leading-relaxed">
+                  Technology evolves rapidly, and so do I. From my Udacity nanodegree to staying current with emerging 
+                  frameworks like Astro and advanced TypeScript patterns, I maintain a commitment to continuous learning. 
+                  This ensures my solutions leverage the latest tools and best practices.
+                </p>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold text-orange-400 mb-3">Quality & Innovation</h4>
+                <p className="text-slate-300 leading-relaxed">
+                  Every project I undertake combines solid engineering principles with creative innovation. Whether 
+                  building scalable web applications, custom drone systems, or multimedia experiences, I prioritize 
+                  both technical excellence and user experience to deliver solutions that exceed expectations.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

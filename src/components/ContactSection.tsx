@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Github, ExternalLink, MapPin, Calendar } from 'lucide-react';
+import { Mail, Github, ExternalLink, MapPin, Calendar, Linkedin, X } from 'lucide-react';
 
 const ContactSection: React.FC = () => {
   return (
@@ -73,6 +73,26 @@ const ContactSection: React.FC = () => {
               >
                 <Github className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
                 GitHub
+              </a>
+              
+              <a
+                href="https://linkedin.com/in/andrea-cozart-lundin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full text-white transition-all duration-300 hover:transform hover:scale-105"
+              >
+                <Linkedin className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                LinkedIn
+              </a>
+
+              <a
+                href="https://x.com/cozyartz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-3 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full text-white transition-all duration-300 hover:transform hover:scale-105"
+              >
+                <X className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                X
               </a>
               
               <a
