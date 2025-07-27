@@ -105,15 +105,6 @@ const ContactSection: React.FC = () => {
                 Links
               </a>
 
-              <a
-                href="https://portfolio.andreacozart.me"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600 rounded-full text-white transition-all duration-300 hover:transform hover:scale-105"
-              >
-                <ExternalLink className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                Portfolio
-              </a>
             </div>
           </div>
 

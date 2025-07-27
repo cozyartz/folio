@@ -66,17 +66,6 @@ const ProjectsSection: React.FC = () => {
 
   const projects = [
     {
-      title: "Modern Portfolio Website",
-      description: "Personal portfolio showcasing full-stack development expertise with React, TypeScript, and Vite. Features responsive design, smooth animations, GitHub integration, and optimized performance with modern web technologies.",
-      technologies: ["React", "TypeScript", "Vite", "Tailwind CSS", "Lucide React"],
-      githubUrl: "https://github.com/cozyartz/folio",
-      liveUrl: "https://portfolio.andreacozart.me",
-      stars: 0,
-      forks: 0,
-      language: "TypeScript",
-      lastUpdated: "2024"
-    },
-    {
       title: "AstroLMS Learning Platform",
       description: "AI-powered Learning Management System landing page built with Astro. Features investor information, course management capabilities, and responsive design optimized for educational technology platforms.",
       technologies: ["Astro", "React", "Tailwind CSS", "Cloudflare Pages"],
