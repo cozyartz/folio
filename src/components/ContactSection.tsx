@@ -96,7 +96,7 @@ const ContactSection: React.FC = () => {
               </a>
               
               <a
-                href="https://links.andreacozart.me"
+                href="https://link.andreacozart.me"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full text-white transition-all duration-300 hover:transform hover:scale-105"
@@ -106,7 +106,7 @@ const ContactSection: React.FC = () => {
               </a>
 
               <a
-                href="https://andreacozart.me"
+                href="https://portfolio.andreacozart.me"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500 to-emerald-500 hover:from-blue-600 hover:to-emerald-600 rounded-full text-white transition-all duration-300 hover:transform hover:scale-105"
