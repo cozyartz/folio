@@ -46,7 +46,7 @@ const Hero: React.FC = () => {
 
         <p className="text-lg text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
           Bridging the digital and physical worlds through code, circuits, and creativity. 
-          From web applications to custom drones, I bring innovative solutions to life with a unique perspective shaped by neurodiversity—seeing connections others miss and solving problems from unexpected angles.
+          From web applications to custom drones, I bring innovative solutions to life with a unique perspective shaped by neurodiversity—dyslexic thinking helps me see connections others miss and solve problems from unexpected angles.
         </p>
 
 
