@@ -63,11 +63,17 @@ const ContentProtection: React.FC = () => {
     // Additional protection against console access
     const disableConsole = () => {
       // Disable common console methods
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (console as any).log = () => {};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (console as any).warn = () => {};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (console as any).error = () => {};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (console as any).info = () => {};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (console as any).debug = () => {};
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (console as any).clear = () => {};
     };
 
@@ -120,7 +126,7 @@ const ContentProtection: React.FC = () => {
     document.head.appendChild(style);
 
     // DevTools detection
-    let devtools = {
+    const devtools = {
       open: false,
       orientation: null as string | null
     };
