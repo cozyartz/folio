@@ -29,6 +29,9 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: Temporarily move wrangler.toml to avoid Pages conflict
+        run: mv wrangler.toml wrangler.worker.toml
+        
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
@@ -37,6 +40,9 @@ jobs:
           projectName: folio
           directory: dist
           wranglerVersion: '3'
+          
+      - name: Restore wrangler.toml for Worker deployment
+        run: mv wrangler.worker.toml wrangler.toml
 
       - name: Deploy GitHub Stats Worker
         run: npx wrangler deploy --env production
