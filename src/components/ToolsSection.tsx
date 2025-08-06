@@ -25,11 +25,18 @@ const ToolsSection: React.FC = () => {
       color: 'from-purple-500 to-pink-500'
     },
     {
-      name: 'Claude',
+      name: 'Anthropic',
       icon: Bot,
+      category: 'AI Platform',
+      description: 'AI safety focused platform powering Claude AI assistant',
+      color: 'from-emerald-500 to-teal-500'
+    },
+    {
+      name: 'Claude',
+      icon: Sparkles,
       category: 'AI Assistant',
       description: 'Advanced AI for coding and creative assistance',
-      color: 'from-emerald-500 to-teal-500'
+      color: 'from-teal-500 to-cyan-500'
     },
     {
       name: 'GPT',
