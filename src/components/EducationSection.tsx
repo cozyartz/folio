@@ -7,7 +7,7 @@ const EducationSection: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900/20 to-slate-900" />
       
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16" data-aos="fade-up">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Education & 
             <span className="bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
@@ -21,7 +21,7 @@ const EducationSection: React.FC = () => {
 
         <div className="grid md:grid-cols-2 gap-8">
           {/* Education Card */}
-          <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl">
+          <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl" data-aos="fade-right">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-emerald-400 rounded-full flex items-center justify-center">
                 <GraduationCap className="w-6 h-6 text-white" />
@@ -33,6 +33,18 @@ const EducationSection: React.FC = () => {
             </div>
             
             <div className="space-y-4">
+              <div className="bg-white/5 rounded-xl p-4">
+                <div className="flex items-center gap-3 mb-2">
+                  <GraduationCap className="w-5 h-5 text-blue-400" />
+                  <h4 className="text-lg font-semibold text-white">Schoolcraft College</h4>
+                </div>
+                <p className="text-slate-300 font-medium">Aviation Management</p>
+                <p className="text-slate-400 text-sm">Livonia, Michigan</p>
+                <p className="text-slate-300 text-sm mt-2">
+                  Studied aviation management, flight operations, and aerospace science fundamentals
+                </p>
+              </div>
+              
               <div className="bg-white/5 rounded-xl p-4">
                 <div className="flex items-center gap-3 mb-2">
                   <Award className="w-5 h-5 text-emerald-400" />
@@ -48,7 +60,7 @@ const EducationSection: React.FC = () => {
           </div>
 
           {/* Experience Card */}
-          <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl">
+          <div className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 hover:bg-white/15 transition-all duration-500 hover:transform hover:scale-105 hover:shadow-2xl" data-aos="fade-left">
             <div className="flex items-center gap-4 mb-6">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
                 <Briefcase className="w-6 h-6 text-white" />

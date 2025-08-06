@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { GitBranch, ExternalLink, ArrowDown, Code, Wrench, Cpu, Palette, Bot } from 'lucide-react';
 
 const Hero: React.FC = () => {
+  const [currentRole, setCurrentRole] = useState(0);
+  const roles = [
+    'Full Stack Developer & Creative Technologist',
+    'Co-Founder of AutiMind, Inc.',
+    'CTO at Cozyartz Media Group', 
+    'AI & Blockchain Innovator',
+    'Hardware Hacker & Drone Builder'
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentRole((prev) => (prev + 1) % roles.length);
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, [roles.length]);
+
   const scrollToEducation = () => {
     document.getElementById('education')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -12,12 +29,15 @@ const Hero: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
       
+      {/* Particles Background - temporarily disabled */}
+      {/* <ParticlesBackground /> */}
+      
       {/* Animated Background Elements */}
       <div className="absolute top-20 left-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-conic from-blue-500/20 via-transparent to-emerald-500/20 rounded-full blur-3xl animate-spin" style={{ animationDuration: '20s' }} />
 
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-24">
         {/* Profile Image */}
         <div className="w-32 h-32 mx-auto mb-8 rounded-full shadow-2xl ring-4 ring-white/20 hover:ring-white/40 transition-all duration-300 hover:transform hover:scale-110 overflow-hidden">
           <img 
@@ -37,17 +57,36 @@ const Hero: React.FC = () => {
           </span>
         </h1>
 
-        <p className="text-2xl md:text-3xl text-slate-300 mb-8 font-light leading-relaxed">
-          Full Stack Developer & Creative Technologist
-          <span className="block text-xl md:text-2xl mt-2 bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
-            Hardware Hacker & Drone Builder
-          </span>
+        <div className="text-2xl md:text-3xl text-slate-300 mb-8 font-light leading-relaxed">
+          <div className="h-20 md:h-16 flex items-center justify-center">
+            <span className="transition-opacity duration-500">
+              {roles[currentRole]}
+            </span>
+          </div>
+        </div>
+
+        <p className="text-lg text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
+          I'm Andrea "Cozy" Cozart-Lundin—developer, builder, and tech entrepreneur dedicated to designing scalable, inclusive digital solutions. 
+          As Co-Founder of AutiMind, Inc., I lead platform and product development at the intersection of AI, blockchain, and modern full-stack engineering. 
+          At Cozyartz Media Group, I serve as CTO and multimedia developer, helping brands stand out with custom web experiences.
         </p>
 
-        <p className="text-lg text-slate-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-          Bridging the digital and physical worlds through code, circuits, and creativity. 
-          From web applications to custom drones, I bring innovative solutions to life with a unique perspective shaped by neurodiversity—dyslexic thinking helps me see connections others miss and solve problems from unexpected angles.
-        </p>
+        <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-4xl mx-auto text-left">
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+            <h4 className="text-emerald-400 font-semibold mb-3">Tech Expertise</h4>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              Next.js, React, Node.js, Python, Cloudflare, Firebase, SQL, and modern cloud/edge infrastructure. 
+              Integrating advanced AI and LLMs (OpenAI, Anthropic) into real-world applications.
+            </p>
+          </div>
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl p-6">
+            <h4 className="text-blue-400 font-semibold mb-3">Leadership & Innovation</h4>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              Built AstroLMS (AI-powered learning platform) and ZServed (AI legal tech). 
+              Hands-on CTO driving architecture, user experience, and go-to-market for startups and client products.
+            </p>
+          </div>
+        </div>
 
 
 

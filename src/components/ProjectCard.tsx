@@ -1,5 +1,6 @@
 import React from 'react';
 import { ExternalLink, Github, Star, GitFork } from 'lucide-react';
+import Tilt from 'react-parallax-tilt';
 
 interface ProjectCardProps {
   title: string;
@@ -25,10 +26,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   lastUpdated
 }) => {
   return (
-    <div className="group relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden hover:bg-white/20 transition-all duration-500 hover:transform hover:scale-[1.02] hover:shadow-2xl">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      
-      <div className="relative p-8">
+    <Tilt
+      tiltMaxAngleX={10}
+      tiltMaxAngleY={10}
+      perspective={1000}
+      transitionSpeed={2000}
+      gyroscope={true}
+      className="group"
+    >
+      <div className="relative bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden hover:bg-white/20 transition-all duration-500 hover:shadow-2xl">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        
+        <div className="relative p-8">
         <div className="flex items-start justify-between mb-4">
           <h3 className="text-2xl font-bold text-white group-hover:text-blue-300 transition-colors duration-300">
             {title}
@@ -87,8 +96,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
           <span className="text-slate-500">Updated {lastUpdated}</span>
         </div>
+        </div>
       </div>
-    </div>
+    </Tilt>
   );
 };
 

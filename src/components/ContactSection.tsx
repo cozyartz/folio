@@ -1,7 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Mail, Github, ExternalLink, MapPin, Calendar, Linkedin, X } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const ContactSection: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Copy email to clipboard for demo purposes
+    navigator.clipboard.writeText('andrea@cozyartzmedia.com').then(() => {
+      toast.success('Email copied to clipboard! 📧', {
+        duration: 4000,
+        icon: '✨',
+      });
+    }).catch(() => {
+      toast.error('Failed to copy email. Please contact andrea@cozyartzmedia.com');
+    });
+    
+    // Reset form
+    setFormData({ name: '', email: '', message: '' });
+  };
+
   return (
     <section className="relative py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
       <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
@@ -111,7 +141,7 @@ const ContactSection: React.FC = () => {
           {/* Quick Contact Form */}
           <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8">
             <h3 className="text-2xl font-bold text-white mb-6">Quick Message</h3>
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">
                   Name
@@ -119,8 +149,12 @@ const ContactSection: React.FC = () => {
                 <input
                   type="text"
                   id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
                   placeholder="Your name"
+                  required
                 />
               </div>
               
@@ -131,8 +165,12 @@ const ContactSection: React.FC = () => {
                 <input
                   type="email"
                   id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300"
                   placeholder="your@email.com"
+                  required
                 />
               </div>
               
@@ -142,9 +180,13 @@ const ContactSection: React.FC = () => {
                 </label>
                 <textarea
                   id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   rows={4}
                   className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300 resize-none"
                   placeholder="Tell me about your project..."
+                  required
                 />
               </div>
               
