@@ -66,7 +66,7 @@ const Hero: React.FC = () => {
         </div>
 
         <p className="text-lg text-slate-400 mb-12 max-w-3xl mx-auto leading-relaxed">
-          I'm Andrea "Cozy" Cozart-Lundin—developer, builder, and tech entrepreneur dedicated to designing scalable, inclusive digital solutions. 
+          I'm Andrea Cozart-Lundin—developer, builder, and tech entrepreneur dedicated to designing scalable, inclusive digital solutions. 
           As Co-Founder of AutiMind, Inc., I lead platform and product development at the intersection of AI, blockchain, and modern full-stack engineering. 
           At Cozyartz Media Group, I serve as CTO and multimedia developer, helping brands stand out with custom web experiences.
         </p>

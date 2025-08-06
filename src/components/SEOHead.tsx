@@ -9,8 +9,8 @@ interface SEOHeadProps {
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-  title = "Andrea \"Cozy\" Cozart-Lundin | Co-Founder AutiMind Inc. | CTO Cozyartz Media Group",
-  description = "Andrea \"Cozy\" Cozart-Lundin - Tech entrepreneur and Co-Founder of AutiMind Inc. CTO at Cozyartz Media Group. 9+ years full-stack developer specializing in Next.js, React, AI/LLMs, blockchain, and modern cloud infrastructure. Built AstroLMS and ZServed platforms. Based in Battle Creek, Michigan, serving neurodiverse and LGBTQ+ communities.",
+  title = "Andrea Cozart-Lundin | Co-Founder AutiMind Inc. | CTO Cozyartz Media Group",
+  description = "Andrea Cozart-Lundin - Tech entrepreneur and Co-Founder of AutiMind Inc. CTO at Cozyartz Media Group. 9+ years full-stack developer specializing in Next.js, React, AI/LLMs, blockchain, and modern cloud infrastructure. Built AstroLMS and ZServed platforms. Based in Battle Creek, Michigan, serving neurodiverse and LGBTQ+ communities.",
   canonical = "https://andreacozart.me/",
   image = "https://andreacozart.me/Cozy1.png",
   type = "profile"
@@ -79,7 +79,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Andrea Cozart-Lundin",
-      "alternateName": "Cozy",
+      "alternateName": "",
       "description": "Tech entrepreneur, Co-Founder of AutiMind Inc., and CTO at Cozyartz Media Group",
       "url": canonical,
       "image": image,
@@ -127,7 +127,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     };
 
     updateMeta('author', 'Andrea Cozart-Lundin');
-    updateMeta('keywords', 'Andrea Cozart-Lundin, Cozy, Full Stack Developer, CTO, AutiMind, Cozyartz Media Group, Next.js, React, TypeScript, AI, LLMs, Blockchain, Battle Creek Michigan, LGBTQ+ Tech, Neurodiverse');
+    updateMeta('keywords', 'Andrea Cozart-Lundin, Full Stack Developer, CTO, AutiMind, Cozyartz Media Group, Next.js, React, TypeScript, AI, LLMs, Blockchain, Battle Creek Michigan, LGBTQ+ Tech, Neurodiverse');
     updateMeta('robots', 'index, follow');
     updateMeta('googlebot', 'index, follow');
     updateMeta('theme-color', '#1e293b');
