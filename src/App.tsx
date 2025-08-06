@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import SEOHead from './components/SEOHead';
+import ContentProtection from './components/ContentProtection';
 
 // Lazy load components that are below the fold
 const EducationSection = lazy(() => import('./components/EducationSection'));
@@ -54,6 +55,7 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-900">
       <SEOHead />
+      <ContentProtection />
       <Toaster
         position="top-right"
         toastOptions={{
