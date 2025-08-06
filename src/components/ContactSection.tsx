@@ -200,6 +200,17 @@ const ContactSection: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* Footer */}
+      <div className="relative z-10 text-center pt-16 pb-8">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="border-t border-white/10 pt-8">
+            <p className="text-slate-400 text-sm">
+              © 2025 Andrea Cozart-Lundin • coded with 💚 by cozycoder
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
