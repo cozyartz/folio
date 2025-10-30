@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { GitBranch, ExternalLink, ArrowDown, Code, Wrench, Cpu, Palette, Bot } from 'lucide-react';
+import { GitBranch, ExternalLink, ArrowDown, Code, Wrench, Cpu, Palette, Bot, Trophy } from 'lucide-react';
 
 const Hero: React.FC = () => {
   const [currentRole, setCurrentRole] = useState(0);
@@ -133,7 +133,16 @@ const Hero: React.FC = () => {
             <GitBranch className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
             View GitHub
           </a>
-          
+
+          <a
+            href="https://devpost.com/cozyartz?ref_content=user-portfolio&ref_feature=portfolio&ref_medium=global-nav"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full text-white font-semibold transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl"
+          >
+            <Trophy className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+            Devpost
+          </a>
 
           <a
             href="https://link.andreacozart.me"

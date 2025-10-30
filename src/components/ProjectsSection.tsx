@@ -61,6 +61,21 @@ const ProjectsSection: React.FC = () => {
         automation: "44% Legal Process Automation",
         advantage: "10x Cost Advantage"
       }
+    },
+    {
+      title: "TechFlunky",
+      description: "AI-powered business marketplace platform connecting developers selling complete business solutions with entrepreneurs and investors. Features 94% accurate AI blueprint validation, instant Cloudflare deployment, and comprehensive due diligence—all without exposing proprietary code.",
+      technologies: ["Astro", "Cloudflare Workers", "D1 Database", "AI/ML", "Llama 3.1 70B", "Stripe"],
+      url: "https://techflunky.com",
+      marketSize: "Multi-B",
+      stage: "Development",
+      category: "Marketplace SaaS",
+      highlight: "Three-Sided AI Marketplace",
+      stats: {
+        market: "8% Success Fee vs 15-20%",
+        automation: "94% AI Validation Accuracy",
+        advantage: "Sub-100ms Global Deploy"
+      }
     }
   ];
 
@@ -78,8 +93,8 @@ const ProjectsSection: React.FC = () => {
     },
     {
       title: "EtchNFT Marketplace",
-      description: "Innovative e-commerce platform bridging digital and physical art by enabling NFT etching onto physical materials. Features user authentication, payment processing, and custom manufacturing integration.",
-      technologies: ["TypeScript", "React", "Node.js", "E-commerce", "NFT Integration"],
+      description: "Phygital collectibles platform creating handcrafted limited-edition items paired with on-chain NFT verification. Bridges physical and digital ownership through custom-etched plaques, apparel, and art pieces with permanent blockchain registration.",
+      technologies: ["TypeScript", "React", "Node.js", "Web3", "NFT/Blockchain", "E-commerce"],
       githubUrl: "https://github.com/cozyartz/etchNFT",
       liveUrl: "https://etchnft.com",
       stars: 0,
@@ -97,6 +112,16 @@ const ProjectsSection: React.FC = () => {
       forks: 0,
       language: "TypeScript",
       lastUpdated: "2024"
+    },
+    {
+      title: "Michigan Spots",
+      description: "Community-powered treasure hunt and discovery game for Michigan built natively on Reddit using Devvit. Features weekly challenges, digital badge collection, city rivalries, real-time leaderboards, and GPS/AI photo verification. Launching October 2025.",
+      technologies: ["Reddit Devvit", "JavaScript", "HTML5", "Gaming", "GPS/AI Validation"],
+      liveUrl: "https://michiganspots.com",
+      stars: 0,
+      forks: 0,
+      language: "JavaScript",
+      lastUpdated: "2025"
     },
     {
       title: "HippiStuff Boutique",
