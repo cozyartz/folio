@@ -1,0 +1,27 @@
+name = "portfolio-contact-form"
+main = "src/worker/contact-form.ts"
+compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
+# account_id will be read from environment variable CLOUDFLARE_ACCOUNT_ID
+
+# Production environment configuration
+[env.production]
+name = "portfolio-contact-form"
+routes = [
+  { pattern = "contact.andreacozart.me/submit", custom_domain = false }
+]
+
+# Environment variables for production
+[[env.production.vars]]
+CONTACT_EMAIL = "andrea@cozyartzmedia.com"
+
+# Secrets (set via wrangler secret put):
+# - EVALIDATE_API_KEY
+# - PURELYMAIL_API_KEY (optional)
+
+# Development environment configuration
+[env.development]
+name = "portfolio-contact-form-dev"
+
+[[env.development.vars]]
+CONTACT_EMAIL = "andrea@cozyartzmedia.com"
