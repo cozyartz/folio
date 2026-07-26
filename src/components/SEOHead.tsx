@@ -9,10 +9,10 @@ interface SEOHeadProps {
 }
 
 const SEOHead: React.FC<SEOHeadProps> = ({
-  title = "Andrea Cozart-Lundin | Co-Founder AutiMind Inc. | CTO Cozyartz Media Group",
-  description = "Andrea Cozart-Lundin - Tech entrepreneur and Co-Founder of AutiMind Inc. CTO at Cozyartz Media Group. 9+ years full-stack developer specializing in Next.js, React, AI/LLMs, blockchain, and modern cloud infrastructure. Built AstroLMS and ZServed platforms. Based in Battle Creek, Michigan, serving neurodiverse and LGBTQ+ communities.",
+  title = "Andrea Cozart-Lundin | Founder of State of Stick, Co.",
+  description = "Andrea Cozart-Lundin is the founder of State of Stick, Co., a Michigan connected-product studio. Creative technology, laser fabrication, NFC and QR experiences, public art, and full-stack product engineering.",
   canonical = "https://andreacozart.me/",
-  image = "https://andreacozart.me/Cozy1.png",
+  image = "https://andreacozart.me/og.png",
   type = "profile"
 }) => {
   useEffect(() => {
@@ -79,30 +79,46 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Andrea Cozart-Lundin",
-      "alternateName": "",
-      "description": "Tech entrepreneur, Co-Founder of AutiMind Inc., and CTO at Cozyartz Media Group",
+      "alternateName": "cozyartz",
+      "description": "Founder of State of Stick, Co., artist, creative technologist, FAA Part 107 drone pilot, and full-stack product builder.",
       "url": canonical,
       "image": image,
       "sameAs": [
         "https://github.com/cozyartz",
         "https://linkedin.com/in/andrea-cozart-lundin",
-        "https://link.andreacozart.me"
+        "https://link.andreacozart.me",
+        "https://stateofstick.co",
+        "https://techbinbytes.com",
+        "https://techflunky.com"
       ],
-      "jobTitle": ["Co-Founder", "CTO", "Full Stack Developer"],
+      "jobTitle": ["Artist", "Creative Technologist", "Full-Stack Developer", "Founder"],
       "worksFor": [
         {
           "@type": "Organization",
-          "name": "AutiMind, Inc."
+          "name": "TechFlunky Labs, LLC",
+          "url": "https://techflunky.com"
         },
         {
-          "@type": "Organization", 
+          "@type": "Organization",
+          "name": "State of Stick, Co.",
+          "url": "https://stateofstick.co"
+        },
+        {
+          "@type": "Organization",
+          "name": "TechBinBytes",
+          "url": "https://techbinbytes.com"
+        },
+        {
+          "@type": "Organization",
           "name": "Cozyartz Media Group"
         }
       ],
       "knowsAbout": [
-        "Next.js", "React", "TypeScript", "Node.js", "Python", "AI/LLMs", 
-        "Blockchain", "Cloud Infrastructure", "Cloudflare", "Firebase",
-        "Full Stack Development", "SaaS Development", "Web3"
+        "Laser Fabrication", "Acrylic Fabrication", "Interactive Art", "Public Art",
+        "NFC Technology", "QR Experiences", "Drone Piloting", "Aerial Mapping",
+        "Creative Technology", "Live Commerce", "E-Commerce", "Email Marketing Automation",
+        "React", "TypeScript", "Node.js", "Python", "AI/LLMs",
+        "Cloudflare", "Full Stack Development", "SaaS Development"
       ],
       "addressLocality": "Battle Creek",
       "addressRegion": "Michigan",
@@ -127,11 +143,11 @@ const SEOHead: React.FC<SEOHeadProps> = ({
     };
 
     updateMeta('author', 'Andrea Cozart-Lundin');
-    updateMeta('keywords', 'Andrea Cozart-Lundin, Full Stack Developer, CTO, AutiMind, Cozyartz Media Group, Next.js, React, TypeScript, AI, LLMs, Blockchain, Battle Creek Michigan, LGBTQ+ Tech, Neurodiverse');
+    updateMeta('keywords', 'Andrea Cozart-Lundin, State of Stick Co, connected products, creative technologist, ArtPrize, laser fabrication, NFC products, QR experiences, public art, FAA Part 107, full stack developer, React, TypeScript, Cloudflare, Battle Creek Michigan');
     updateMeta('robots', 'index, follow');
     updateMeta('googlebot', 'index, follow');
-    updateMeta('theme-color', '#1e293b');
-    updateMeta('msapplication-TileColor', '#1e293b');
+    updateMeta('theme-color', '#171713');
+    updateMeta('msapplication-TileColor', '#171713');
 
   }, [title, description, canonical, image, type]);
 
