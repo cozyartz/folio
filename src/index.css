@@ -12,8 +12,9 @@
   text-rendering: optimizeLegibility;
   --paper: #f0eee5;
   --ink: #171713;
-  --orange: #ff4d00;
-  --acid: #d7ff3f;
+  --signal: #e8ff45;
+  --signal-soft: #f4ffae;
+  --metal: #cbc9bf;
   --line: rgba(23, 23, 19, 0.22);
 }
 
@@ -43,7 +44,7 @@ button {
 
 ::selection {
   color: var(--paper);
-  background: var(--orange);
+  background: var(--signal);
 }
 
 .portfolio-shell {
@@ -101,7 +102,7 @@ button {
 .desktop-nav a {
   padding: 12px 16px;
   color: var(--ink);
-  background: var(--acid);
+  background: var(--signal);
 }
 
 .menu-toggle {
@@ -158,7 +159,7 @@ button {
   width: 13px;
   height: 100%;
   content: '';
-  background: var(--orange);
+  background: var(--signal);
 }
 
 .hero-copy {
@@ -191,7 +192,7 @@ button {
 .status-dot {
   width: 8px;
   height: 8px;
-  background: var(--acid);
+  background: var(--signal);
   border-radius: 50%;
   box-shadow: 0 0 0 5px rgba(215, 255, 63, 0.12);
 }
@@ -215,7 +216,7 @@ button {
 }
 
 .hero h1 em {
-  color: var(--orange);
+  color: var(--signal);
   font-style: normal;
 }
 
@@ -264,7 +265,7 @@ button {
 .button-primary {
   padding: 17px 20px;
   color: var(--ink);
-  background: var(--acid);
+  background: var(--signal);
 }
 
 .text-link {
@@ -286,26 +287,38 @@ button {
 
 .object-frame {
   position: relative;
-  width: min(86%, 450px);
-  transform: rotate(4deg);
-  filter: drop-shadow(28px 34px 24px rgba(0, 0, 0, 0.42));
+  display: grid;
+  width: min(88%, 470px);
+  min-height: 600px;
+  place-items: center;
+  padding: 34px 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 35%),
+    #0d0d0b;
+  border: 1px solid rgba(240, 238, 229, 0.32);
+  box-shadow:
+    0 34px 70px rgba(0, 0, 0, 0.42),
+    inset 0 0 0 12px #171713,
+    inset 0 0 0 13px rgba(240, 238, 229, 0.14);
+  transform: rotate(2deg);
 }
 
 .object-frame::after {
   position: absolute;
-  inset: 12% -6% -2% 5%;
+  inset: 22px -18px -18px 22px;
   z-index: -1;
   content: '';
-  background: var(--orange);
-  transform: rotate(-7deg);
+  background: var(--signal);
+  transform: rotate(-3deg);
 }
 
 .object-frame img {
   display: block;
-  width: 100%;
-  height: auto;
-  mix-blend-mode: screen;
-  filter: contrast(1.12) grayscale(1);
+  width: auto;
+  max-width: 100%;
+  height: 540px;
+  object-fit: contain;
+  filter: drop-shadow(0 22px 18px rgba(0, 0, 0, 0.55)) contrast(1.03);
 }
 
 .object-stamp {
@@ -315,7 +328,7 @@ button {
   z-index: 2;
   padding: 9px 12px;
   color: var(--ink);
-  background: var(--acid);
+  background: var(--signal);
   transform: rotate(6deg);
 }
 
@@ -355,7 +368,10 @@ button {
 
 .section-kicker {
   margin: 0 0 36px;
-  color: var(--orange);
+  color: var(--ink);
+  background: var(--signal);
+  padding: 7px 10px;
+  width: fit-content;
   font-weight: 500;
 }
 
@@ -367,7 +383,7 @@ button {
 
 .manifesto h2 span {
   text-decoration: underline;
-  text-decoration-color: var(--orange);
+  text-decoration-color: var(--signal);
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.12em;
 }
@@ -400,7 +416,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: var(--orange);
+  color: var(--ink);
   font-family: 'DM Mono', monospace;
   font-size: 12px;
 }
@@ -482,15 +498,27 @@ button {
   min-height: 540px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 25% 20%, rgba(215, 255, 63, 0.18), transparent 25%),
-    var(--orange);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.78), transparent 34%),
+    repeating-linear-gradient(90deg, rgba(23, 23, 19, 0.025) 0 1px, transparent 1px 5px),
+    var(--metal);
 }
 
 .work-image::before {
   position: absolute;
   inset: 18px;
   content: '';
-  border: 1px solid rgba(23, 23, 19, 0.4);
+  border: 1px solid rgba(23, 23, 19, 0.62);
+}
+
+.work-image::after {
+  position: absolute;
+  right: 30px;
+  bottom: 26px;
+  content: 'PHYSICAL PROOF / 01';
+  color: rgba(23, 23, 19, 0.7);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
 }
 
 .work-image img {
@@ -500,8 +528,7 @@ button {
   height: 470px;
   margin: auto;
   object-fit: contain;
-  mix-blend-mode: multiply;
-  filter: contrast(1.08) grayscale(1);
+  filter: drop-shadow(0 22px 18px rgba(23, 23, 19, 0.28)) contrast(1.03);
 }
 
 .work-content {
@@ -511,7 +538,7 @@ button {
 
 .work-eyebrow {
   margin: 0 0 22px;
-  color: var(--acid);
+  color: var(--signal);
 }
 
 .work-content h3 {
@@ -549,14 +576,16 @@ button {
   width: fit-content;
   padding-bottom: 7px;
   color: var(--paper);
-  border-bottom: 1px solid var(--orange);
+  border-bottom: 1px solid var(--signal);
 }
 
 .about-section {
   display: grid;
   grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
   gap: clamp(60px, 9vw, 150px);
-  background: var(--acid);
+  background:
+    linear-gradient(90deg, var(--signal) 0 14px, transparent 14px),
+    var(--paper);
 }
 
 .about-portrait {
@@ -632,7 +661,7 @@ button {
 .discipline-list svg {
   width: 15px;
   height: 15px;
-  color: var(--orange);
+  color: var(--ink);
   stroke-width: 3;
 }
 
@@ -664,12 +693,13 @@ button {
   display: grid;
   grid-template-columns: 1.25fr 0.75fr;
   gap: 80px;
-  color: var(--paper);
-  background: var(--orange);
+  color: var(--ink);
+  background: var(--signal);
 }
 
 .contact-section .section-kicker {
-  color: var(--ink);
+  color: var(--signal);
+  background: var(--ink);
 }
 
 .contact-section h2 {
@@ -685,7 +715,7 @@ button {
   width: 42px;
   height: 42px;
   margin-bottom: 40px;
-  color: var(--acid);
+  color: var(--ink);
 }
 
 .contact-action p {
