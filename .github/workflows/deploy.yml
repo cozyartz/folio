@@ -6,19 +6,28 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: folio-pages-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: Deploy
+    name: Build and deploy portfolio
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
@@ -29,31 +38,15 @@ jobs:
       - name: Build application
         run: npm run build
 
-      - name: Temporarily move wrangler.toml to avoid Pages conflict
-        run: mv wrangler.toml wrangler.worker.toml
-        
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: folio
-          directory: dist
-          wranglerVersion: '3'
-          
-      - name: Restore wrangler.toml for Worker deployment
-        run: mv wrangler.worker.toml wrangler.toml
-
-      - name: Deploy GitHub Stats Worker
-        run: npx wrangler deploy --env production --config wrangler.toml
+      - name: Deploy portfolio to Cloudflare Pages
+        if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        continue-on-error: true
-
-      - name: Deploy Contact Form Worker
-        run: npx wrangler deploy --env production --config wrangler.contact.toml
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        continue-on-error: true
+          CLOUDFLARE_ACCOUNT_ID: 51826042d6e31c694331efeb1be34123
+          DEPLOY_BRANCH: ${{ github.head_ref || github.ref_name }}
+          DEPLOY_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          mv wrangler.toml wrangler.worker.toml
+          trap 'mv wrangler.worker.toml wrangler.toml' EXIT
+          npx wrangler whoami
+          npx wrangler pages deploy dist --project-name=folio --branch="$DEPLOY_BRANCH" --commit-hash="$DEPLOY_SHA" --commit-dirty=false
