@@ -1,306 +1,557 @@
+import { useEffect, useRef, useState } from "react";
 import {
-  ArrowDownRight,
   ArrowUpRight,
-  Braces,
-  Check,
-  CircuitBoard,
-  Github,
+  ArrowDown,
+  ArrowRight,
+  Radio,
+  Fingerprint,
   Layers3,
-  Mail,
-  MapPin,
   Menu,
-  Plane,
-  Sparkles,
   X,
-} from 'lucide-react';
-import { useState } from 'react';
+  Github,
+  Mail,
+  Plus,
+  Minus,
+} from "lucide-react";
 
-const capabilities = [
+const stages = [
   {
-    number: '01',
+    label: "The object",
+    title: "Made to mean something.",
+    text: "An emblem. A package. A piece of equipment. Start with a physical object worth keeping.",
+    detail: "01 / PHYSICAL PRODUCT",
     icon: Layers3,
-    title: 'Physical product',
-    text: 'Emblems, objects, and installations shaped through vector design, laser fabrication, material testing, and finishing.',
   },
   {
-    number: '02',
-    icon: CircuitBoard,
-    title: 'Connected experience',
-    text: 'NFC and QR touchpoints that open stories, ownership journeys, sponsor moments, and useful next actions.',
+    label: "The connection",
+    title: "A small touch. A new possibility.",
+    text: "A phone tap or QR scan opens a browser experience. The object becomes a doorway to useful information.",
+    detail: "02 / NFC + QR",
+    icon: Radio,
   },
   {
-    number: '03',
-    icon: Braces,
-    title: 'Digital system',
-    text: 'Production web platforms, first-party analytics, and edge infrastructure built to support the object after it leaves the shop.',
+    label: "The relationship",
+    title: "Useful long after the first tap.",
+    text: "Keep approved product knowledge, service history, stories, and next actions connected as the object’s life unfolds.",
+    detail: "03 / CONNECTED PRODUCT INTELLIGENCE",
+    icon: Fingerprint,
   },
 ];
-
-const selectedWork = [
-  {
-    eyebrow: 'FLAGSHIP PRACTICE',
-    title: 'State of Stick, Co.',
-    description:
-      'A connected-product studio turning designed physical objects into useful digital touchpoints. I lead the full system—from emblem and fabrication work to the destinations, data, and operations behind each activation.',
-    tags: ['Connected products', 'Laser fabrication', 'NFC + QR', 'Cloudflare'],
-    href: 'https://stateofstick.co',
-    action: 'Visit the studio',
-    featured: true,
-  },
-  {
-    eyebrow: 'PUBLIC ART · 2026',
-    title: 'A map you can enter through touch.',
-    description:
-      'An ArtPrize initiative built around a 50-state acrylic map for America’s 250th year. Each state becomes its own designed object while contributing to one larger connected experience.',
-    tags: ['ArtPrize', 'Public art', 'Interactive story', 'Fabrication'],
-    href: 'https://stateofstick.co/artprize',
-    action: 'Explore the project',
-  },
-  {
-    eyebrow: 'SOFTWARE + SYSTEMS',
-    title: 'Built past the landing page.',
-    description:
-      'I design and ship complete products across React, TypeScript, Astro, Workers, D1, R2, PostgreSQL, AI integrations, payments, and operational tooling.',
-    tags: ['Product engineering', 'Edge systems', 'AI', 'Commerce'],
-    href: 'https://github.com/cozyartz',
-    action: 'View GitHub',
-  },
+const links = [
+  ["State of Stick", "The company", "https://stateofstick.co"],
+  ["ZapLatch", "Connected service software", "https://zaplatch.com"],
+  [
+    "ALTstatic™",
+    "The connected platform",
+    "https://stateofstick.co/altstatic",
+  ],
+  [
+    "Product catalog",
+    "Objects made to be kept",
+    "https://stateofstick.co/catalog",
+  ],
+  [
+    "Platform documentation",
+    "Explore the system",
+    "https://docs.stateofstick.co",
+  ],
+  [
+    "TechFlunky Labs",
+    "Creative + technical practice",
+    "https://techflunkylabs.com",
+  ],
 ];
-
 const disciplines = [
-  'Creative direction',
-  'Connected product strategy',
-  'Vector + emblem design',
-  'Laser fabrication',
-  'NFC + QR experiences',
-  'React + TypeScript',
-  'Astro + Cloudflare',
-  'Product systems',
-  'AI integrations',
-  'FAA Part 107',
+  "Product strategy",
+  "Creative direction",
+  "Laser fabrication",
+  "NFC + QR experiences",
+  "React + TypeScript",
+  "Cloudflare infrastructure",
+  "AI integrations",
+  "FAA Part 107",
 ];
+const external = { target: "_blank", rel: "noopener noreferrer" };
 
 export default function PortfolioExperience() {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const jumpTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    setMenuOpen(false);
-  };
-
+  const [stage, setStage] = useState(0);
+  const [openCapability, setOpenCapability] = useState<number | null>(0);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const StageIcon = stages[stage].icon;
+  useEffect(() => {
+    if (!menuOpen) return;
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        menuButton.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", close);
+    return () => document.removeEventListener("keydown", close);
+  }, [menuOpen]);
   return (
     <div className="portfolio-shell">
+      <a className="skip-link" href="#main">
+        Skip to content
+      </a>
       <header className="site-header">
-        <button className="wordmark" onClick={() => jumpTo('top')} aria-label="Back to top">
-          <span>ANDREA</span>
-          <span>COZART—LUNDIN</span>
-        </button>
-
+        <a
+          className="wordmark"
+          href="#top"
+          aria-label="Andrea Cozart-Lundin home"
+        >
+          A<span>—</span>CL
+        </a>
+        <span className="header-caption">
+          INDEPENDENT MIND.
+          <br />
+          CONNECTED WORLD.
+        </span>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <button onClick={() => jumpTo('practice')}>Practice</button>
-          <button onClick={() => jumpTo('work')}>Selected work</button>
-          <button onClick={() => jumpTo('about')}>About</button>
-          <a href="mailto:hello@andreacozart.me">Start a conversation</a>
+          <a href="#work">Selected work</a>
+          <a href="#about">The founder</a>
+          <a className="nav-contact" href="#contact">
+            Let’s connect <ArrowUpRight size={15} />
+          </a>
         </nav>
-
         <button
+          ref={menuButton}
           className="menu-toggle"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <X /> : <Menu />}
         </button>
-
         {menuOpen && (
-          <nav className="mobile-nav" aria-label="Mobile navigation">
-            <button onClick={() => jumpTo('practice')}>Practice</button>
-            <button onClick={() => jumpTo('work')}>Selected work</button>
-            <button onClick={() => jumpTo('about')}>About</button>
-            <a href="mailto:hello@andreacozart.me">Start a conversation</a>
+          <nav
+            id="mobile-nav"
+            className="mobile-nav"
+            aria-label="Mobile navigation"
+          >
+            {[
+              ["Selected work", "work"],
+              ["The founder", "about"],
+              ["Let’s connect", "contact"],
+            ].map(([label, id]) => (
+              <a key={id} href={`#${id}`} onClick={() => setMenuOpen(false)}>
+                {label}
+                <ArrowUpRight />
+              </a>
+            ))}
           </nav>
         )}
       </header>
-
-      <main>
+      <main id="main">
         <section className="hero" id="top">
-          <div className="hero-copy">
-            <div className="status-line">
-              <span className="status-dot" />
-              Battle Creek, Michigan · Building now
-            </div>
-            <h1>
-              I make physical
-              <br />
-              ideas <em>do more.</em>
-            </h1>
-            <p className="hero-lede">
-              I’m Andrea Cozart-Lundin—founder of State of Stick, Co., creative technologist, artist, and
-              full-stack builder. I connect crafted objects to stories, systems, and measurable experiences.
-            </p>
-            <div className="hero-actions">
-              <a className="button button-primary" href="https://stateofstick.co" target="_blank" rel="noreferrer">
-                Explore State of Stick, Co. <ArrowUpRight />
-              </a>
-              <button className="text-link" onClick={() => jumpTo('work')}>
-                See selected work <ArrowDownRight />
-              </button>
-            </div>
+          <div className="hero-topline">
+            <span>
+              <i /> ANDREA COZART-LUNDIN
+            </span>
+            <span>BATTLE CREEK, MICHIGAN / EST. IN CURIOSITY</span>
           </div>
-
-          <div className="hero-object" aria-label="Engraved State of Stick, Co. ArtPrize emblem">
-            <div className="object-stamp">DESIGNED + MADE IN MICHIGAN</div>
-            <div className="object-frame">
-              <img
-                src="/state-of-stick-artprize-can.png"
-                alt="Laser-engraved State of Stick, Co. ArtPrize 2026 can-shaped emblem"
-                width="1000"
-                height="1333"
-              />
-            </div>
-            <span className="object-note object-note-one">01 / OBJECT</span>
-            <span className="object-note object-note-two">ART + INTERFACE</span>
-          </div>
-
-          <div className="hero-index" aria-hidden="true">
-            <span>PORTFOLIO / 2026</span>
-            <span>SCROLL TO ENTER ↓</span>
-          </div>
-        </section>
-
-        <section className="manifesto" id="practice">
-          <p className="section-kicker">MY PRACTICE</p>
-          <h2>
-            The work lives where <span>object</span>, <span>story</span>, and <span>system</span> meet.
-          </h2>
-          <p className="manifesto-copy">
-            A connected product should feel valuable before anyone taps it. Then the digital layer should make
-            that object more useful—without getting in the way of the craft.
-          </p>
-
-          <div className="capability-grid">
-            {capabilities.map(({ number, icon: Icon, title, text }) => (
-              <article className="capability" key={title}>
-                <div className="capability-top">
-                  <span>{number}</span>
-                  <Icon aria-hidden="true" />
-                </div>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="work-section" id="work">
-          <div className="work-heading">
-            <p className="section-kicker">SELECTED WORK</p>
-            <h2>Ideas made tangible.</h2>
-            <p>One practice. Multiple materials. Every layer considered.</p>
-          </div>
-
-          <div className="work-list">
-            {selectedWork.map((project, index) => (
-              <article className={`work-card ${project.featured ? 'work-card-featured' : ''}`} key={project.title}>
-                <div className="work-number">0{index + 1}</div>
-                {project.featured && (
-                  <div className="work-image">
-                    <img
-                      src="/state-of-stick-gr-can.png"
-                      alt="Engraved State of Stick, Co. GR ArtPrize 2026 emblem"
-                      width="2040"
-                      height="2988"
-                      loading="lazy"
-                    />
-                  </div>
-                )}
-                <div className="work-content">
-                  <p className="work-eyebrow">{project.eyebrow}</p>
-                  <h3>{project.title}</h3>
-                  <p>{project.description}</p>
-                  <div className="tag-list">
-                    {project.tags.map((tag) => (
-                      <span key={tag}>{tag}</span>
-                    ))}
-                  </div>
-                  <a href={project.href} target="_blank" rel="noreferrer">
-                    {project.action} <ArrowUpRight />
-                  </a>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="about-section" id="about">
-          <div className="about-portrait">
-            <div className="portrait-frame">
-              <img src="/Cozy1.png" alt="Andrea Cozart-Lundin" width="512" height="512" loading="lazy" />
-            </div>
-            <p>FOUNDER · MAKER · BUILDER</p>
-          </div>
-
-          <div className="about-copy">
-            <p className="section-kicker">ABOUT ANDREA</p>
-            <h2>Not one lane. One point of view.</h2>
-            <p className="about-lede">
-              My background crosses art, software, fabrication, infrastructure, and aviation. That range is the
-              point: I can follow an idea from sketch to physical object to the platform that makes it work.
-            </p>
+          <h1>
+            Physical craft.
+            <br />
+            <span>Digital instinct.</span>
+          </h1>
+          <div className="hero-bottom">
             <p>
-              Today my focus is State of Stick, Co.—building connected physical products and experiences with a
-              small, woman-owned Michigan business. I also bring years of product engineering and creative
-              technology work to ambitious collaborations.
+              I’m Andrea. Founder of <strong>State of Stick, Co. Inc.</strong>
+              <br />I turn physical objects into lasting digital
+              connections—with design, manufacturing, software, and a little
+              restless curiosity.
             </p>
-
-            <div className="discipline-list">
-              {disciplines.map((discipline) => (
-                <span key={discipline}>
-                  <Check /> {discipline}
-                </span>
-              ))}
+            <a
+              className="round-link"
+              href="#work"
+              aria-label="Explore selected work"
+            >
+              <ArrowDown />
+            </a>
+          </div>
+          <div
+            className="hero-art"
+            aria-label="Abstract illustration of a connected physical identity"
+          >
+            <div className="orbit orbit-one" />
+            <div className="orbit orbit-two" />
+            <div className="identity-chip">
+              <Fingerprint strokeWidth={0.7} />
+              <span>OBJECT / IDENTITY / POSSIBILITY</span>
             </div>
-
-            <div className="about-meta">
-              <span>
-                <MapPin /> Battle Creek, MI
-              </span>
-              <span>
-                <Plane /> FAA Part 107
-              </span>
-              <a href="https://github.com/cozyartz" target="_blank" rel="noreferrer">
-                <Github /> @cozyartz
-              </a>
-            </div>
+            <span className="art-coordinate">
+              42.3211° N<br />
+              85.1797° W
+            </span>
+            <span className="art-caption">
+              THE PHYSICAL IS ONLY THE BEGINNING.
+            </span>
+          </div>
+          <div className="hero-foot mono">
+            <span>FOUNDER + CREATIVE TECHNOLOGIST</span>
+            <span>SCROLL TO CONNECT ↓</span>
           </div>
         </section>
-
-        <section className="contact-section" id="contact">
-          <div>
-            <p className="section-kicker">LET’S MAKE SOMETHING REAL</p>
+        <div className="discipline-strip" aria-label="Practice areas">
+          <span>DESIGN</span>
+          <i>✳</i>
+          <span>MAKE</span>
+          <i>✳</i>
+          <span>CONNECT</span>
+          <i>✳</i>
+          <span>REIMAGINE</span>
+          <i>✳</i>
+        </div>
+        <section className="work-section section" id="work">
+          <div className="section-heading">
+            <span className="kicker">01 / SELECTED WORK</span>
             <h2>
-              Have an object, idea,
+              One curious mind.
               <br />
-              or impossible brief?
+              <span>Many ways to connect.</span>
             </h2>
           </div>
-          <div className="contact-action">
-            <Sparkles aria-hidden="true" />
+          <article className="company-feature">
+            <a
+              className="product-photo"
+              href="https://stateofstick.co"
+              {...external}
+            >
+              <img
+                src="/connected-products.webp"
+                alt="A collection of real metallic-finish State of Stick emblems"
+                width="1254"
+                height="1254"
+                loading="lazy"
+              />
+              <span className="photo-caption mono">
+                REAL OBJECTS. REAL POSSIBILITIES. <ArrowUpRight size={18} />
+              </span>
+            </a>
+            <div className="company-copy">
+              <span className="kicker">THE COMPANY / FOUNDER</span>
+              <h3>
+                State of Stick,
+                <br />
+                Co. Inc.
+              </h3>
+              <p className="large-copy">
+                The object is the beginning.
+                <br />
+                The connection is what comes next.
+              </p>
+              <p>
+                A Battle Creek company bringing physical manufacturing,
+                persistent product identity, software, and AI together. We make
+                premium emblems and connected experiences that keep useful
+                information with the products, places, and people it belongs to.
+              </p>
+              <div className="tags">
+                <span>Made in Michigan</span>
+                <span>Connected products</span>
+                <span>Physical + digital</span>
+              </div>
+              <a
+                className="text-link"
+                href="https://stateofstick.co"
+                {...external}
+              >
+                Explore the company <ArrowUpRight />
+              </a>
+            </div>
+          </article>
+          <div className="project-grid">
+            <article className="zaplatch-card">
+              <div className="card-top mono">
+                <span>01.A / SERVICE SOFTWARE</span>
+                <ArrowUpRight />
+              </div>
+              <div className="zap-wordmark">
+                zaplatch<span>.</span>
+              </div>
+              <div className="service-path" aria-hidden="true">
+                <Radio />
+                <span />
+                <Fingerprint />
+                <span />
+                <Layers3 />
+              </div>
+              <h3>
+                Good work deserves
+                <br />a lasting connection.
+              </h3>
+              <p>
+                AI-assisted software for businesses that install, repair, and
+                maintain. Branded emblems give customers a tap or scan back to
+                their service team, with equipment details, requests, and
+                recorded work connected.
+              </p>
+              <a
+                className="text-link"
+                href="https://zaplatch.com"
+                {...external}
+              >
+                Meet ZapLatch <ArrowUpRight />
+              </a>
+            </article>
+            <article className="platform-card">
+              <div className="card-top mono">
+                <span>01.B / CONNECTED PLATFORM</span>
+                <ArrowUpRight />
+              </div>
+              <div className="platform-symbol" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </div>
+              <h3>
+                ALTstatic™
+                <br />
+                <span>A doorway that lasts.</span>
+              </h3>
+              <p>
+                The connected platform behind physical-to-digital experiences.
+                Product identity, managed destinations, and useful context give
+                each interaction somewhere meaningful to go.
+              </p>
+              <a
+                className="text-link"
+                href="https://stateofstick.co/altstatic"
+                {...external}
+              >
+                Explore ALTstatic <ArrowUpRight />
+              </a>
+            </article>
+          </div>
+          <article className="proof-card">
+            <img
+              src="/connected-bottle.webp"
+              alt="Custom Cauldron bottle prototype with a dimensional connected emblem"
+              width="1350"
+              height="1800"
+              loading="lazy"
+            />
+            <div>
+              <span className="kicker">
+                PHYSICAL PROOF / PRODUCED PROTOTYPE
+              </span>
+              <h3>
+                More than packaging.
+                <br />A story with a next chapter.
+              </h3>
+              <p>
+                The Custom Cauldron prototype brings physical craft and a
+                managed product story together. A tangible example of what
+                connected packaging can become.
+              </p>
+              <a
+                className="text-link"
+                href="https://stateofstick.co/case-studies/custom-cauldron"
+                {...external}
+              >
+                See the case study <ArrowUpRight />
+              </a>
+            </div>
+          </article>
+        </section>
+        <section className="connection-section section" id="connection">
+          <div className="section-heading">
+            <span className="kicker">02 / FOLLOW THE CONNECTION</span>
+            <h2>
+              A thing becomes
+              <br />
+              <span>something more.</span>
+            </h2>
             <p>
-              I’m interested in connected products, public art, brand activations, unusual interfaces, and
-              projects that need both creative and technical thinking.
+              Select a step. Follow the idea from a physical object to an
+              ongoing relationship.
             </p>
-            <a href="mailto:hello@andreacozart.me">
-              <Mail /> hello@andreacozart.me <ArrowUpRight />
+          </div>
+          <div className="connection-lab">
+            <div
+              className="stage-buttons"
+              role="group"
+              aria-label="Explore the connection stages"
+            >
+              {stages.map((item, index) => (
+                <button
+                  key={item.label}
+                  aria-pressed={stage === index}
+                  onClick={() => setStage(index)}
+                >
+                  <span className="mono">0{index + 1}</span>
+                  {item.label}
+                  <ArrowRight />
+                </button>
+              ))}
+            </div>
+            <div className="stage-visual" aria-hidden="true">
+              <div className={`signal-rings stage-${stage}`}>
+                <span />
+                <span />
+                <span />
+                <StageIcon />
+              </div>
+              <span className="mono">CONCEPTUAL INTERACTION</span>
+            </div>
+            <div
+              className="stage-content"
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              <span className="kicker">{stages[stage].detail}</span>
+              <h3>{stages[stage].title}</h3>
+              <p>{stages[stage].text}</p>
+              <a
+                className="text-link"
+                href="https://stateofstick.co/connected-product-intelligence"
+                {...external}
+              >
+                Explore the intelligence layer <ArrowUpRight />
+              </a>
+            </div>
+          </div>
+        </section>
+        <section className="about-section section" id="about">
+          <div>
+            <span className="kicker">03 / THE PERSON BEHIND THE WORK</span>
+            <h2>
+              Artist’s eye.
+              <br />
+              Builder’s mind.
+              <br />
+              <span>Founder’s nerve.</span>
+            </h2>
+            <div className="founder-signature">
+              Andrea Cozart-Lundin
+              <span>FOUNDER / STATE OF STICK, CO. INC.</span>
+            </div>
+          </div>
+          <div className="about-copy">
+            <p className="large-copy">
+              I like the place where disciplines collide. Where a sketch becomes
+              an object, an object becomes an interface, and an idea becomes a
+              business.
+            </p>
+            <p>
+              My work crosses art, fabrication, full-stack software,
+              infrastructure, and aviation. Today, I bring those worlds together
+              at State of Stick, Co. Inc.—building from Battle Creek, Michigan,
+              with a belief that physical products can keep doing more.
+            </p>
+            <div className="disciplines">
+              {disciplines.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+            <a
+              className="text-link"
+              href="https://stateofstick.co/founder-story"
+              {...external}
+            >
+              Read my founder story <ArrowUpRight />
+            </a>
+          </div>
+        </section>
+        <section className="practice-section section">
+          <span className="kicker">04 / WHAT WE CAN MAKE HAPPEN</span>
+          {[
+            [
+              "Physical products with purpose",
+              "Emblems, connected packaging, recognition pieces, retail displays, and creative installations. Thoughtful design, fabrication, and a useful digital destination.",
+              "Explore the catalog",
+              "https://stateofstick.co/catalog",
+            ],
+            [
+              "Software that stays with the object",
+              "Connected product identities, managed experiences, service workflows, and AI assistance grounded in approved information. Start with one object, one audience, and one useful action.",
+              "Explore the platform",
+              "https://stateofstick.co/platform",
+            ],
+            [
+              "Art that invites participation",
+              "Public art and connected storytelling that make an audience part of the experience. Explore the State of Stick ArtPrize initiative and its physical-to-digital ideas.",
+              "Explore ArtPrize",
+              "https://stateofstick.co/artprize",
+            ],
+          ].map(([title, text, action, href], index) => (
+            <div className="capability-row" key={title}>
+              <h3>
+                <button
+                  aria-expanded={openCapability === index}
+                  aria-controls={`capability-${index}`}
+                  onClick={() =>
+                    setOpenCapability(openCapability === index ? null : index)
+                  }
+                >
+                  <span className="mono">0{index + 1}</span>
+                  {title}
+                  {openCapability === index ? <Minus /> : <Plus />}
+                </button>
+              </h3>
+              <div id={`capability-${index}`} hidden={openCapability !== index}>
+                <p>{text}</p>
+                <a className="text-link" href={href} {...external}>
+                  {action}
+                  <ArrowUpRight />
+                </a>
+              </div>
+            </div>
+          ))}
+        </section>
+        <section className="links-section section">
+          <div className="section-heading">
+            <span className="kicker">05 / THE CONNECTED WORLD</span>
+            <h2>Follow the threads.</h2>
+          </div>
+          <div className="link-grid">
+            {links.map(([name, detail, href]) => (
+              <a key={name} href={href} {...external}>
+                <span>
+                  <strong>{name}</strong>
+                  <small>{detail}</small>
+                </span>
+                <ArrowUpRight />
+              </a>
+            ))}
+          </div>
+        </section>
+        <section className="contact-section section" id="contact">
+          <span className="kicker">GOT SOMETHING IN MIND?</span>
+          <a className="contact-title" href="mailto:andrea@stateofstick.co">
+            Let’s make
+            <br />
+            it <em>real.</em>
+            <ArrowUpRight />
+          </a>
+          <div className="contact-bottom">
+            <p>
+              A physical product. A useful platform.
+              <br />
+              An idea that doesn’t fit neatly into a category.
+            </p>
+            <a href="mailto:andrea@stateofstick.co">
+              <Mail size={18} /> andrea@stateofstick.co
             </a>
           </div>
         </section>
       </main>
-
       <footer>
-        <div className="footer-mark">A—CL</div>
-        <p>© 2026 Andrea Cozart-Lundin</p>
-        <p>Designed in Michigan. Built at the edge.</p>
+        <a className="wordmark" href="#top">
+          A<span>—</span>CL
+        </a>
+        <p>
+          © {new Date().getFullYear()} Andrea Cozart-Lundin
+          <br />
+          DESIGNED IN MICHIGAN. BUILT AT THE EDGE.
+        </p>
+        <a href="https://github.com/cozyartz" {...external}>
+          <Github size={18} /> GitHub <ArrowUpRight size={16} />
+        </a>
+        <a href="#top">Back to top ↑</a>
       </footer>
     </div>
   );

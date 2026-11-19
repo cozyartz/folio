@@ -1,22 +1,17 @@
 {
   "name": "Andrea Cozart-Lundin Portfolio",
   "short_name": "Andrea Portfolio",
-  "description": "Full Stack Developer & Creative Technologist Portfolio",
+  "description": "Andrea Cozart-Lundin \u2014 Founder, State of Stick, Co. Inc.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1e293b",
-  "theme_color": "#1e293b",
+  "background_color": "#050707",
+  "theme_color": "#050707",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/favicon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/profile-avatar.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     }
   ],
   "categories": ["portfolio", "developer", "technology"],
